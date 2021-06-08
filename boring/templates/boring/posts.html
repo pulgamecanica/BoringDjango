@@ -1,0 +1,6 @@
+{% extends 'boring/base.html' %}
+{% block main %}
+    {% for post in posts %}
+        <h1>{{post}}</h1>
+    {% endfor %}
+{% endblock %}

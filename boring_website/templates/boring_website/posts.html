@@ -1,0 +1,119 @@
+{% extends 'boring_website/base.html' %}
+{% block main %}
+    {% for post in posts %}
+        <h1>{{post}}</h1>
+    {% endfor %}
+	<h1 class="posts_title">Posts</h1>
+	<div class="posts_wrapper">
+		<span id="imageWindowDisplayer"></span>
+		<figure>
+			<button onclick="openImage('doggoPost.png')">
+				<img src="img/doggoPost300px.jpg" alt="dog beagle">
+				<figcaption>Boring Doggo</figcaption>
+			</button>
+			<details>
+				<summary>Read about the doggo</summary>
+				<p>Chaquis The Beagle gets sooo bored when we go outsid	e &#129315 &#129315 *Ignoring the ball completely &#128542*</p>
+				<footer>DoggoMaster09 on Mon 18 Sep 21</footer>
+			</details>
+		</figure>
+		<figure>
+			<button onclick="openImage('AndreInTheWoods.png')">
+				<img src="img/AndreInTheWoods.png" alt="woods personLayingDown taking-a-nap">
+				<figcaption>The Ardennes</figcaption>
+			</button>
+			<details>
+				<summary>Read about the roadtrip</summary>
+				<p>I decided to go to the woods and camp there for a few days, I was sooo bored that I only took naps and didn't explore a thing!</p>
+				<footer>pulgamecanica11 on Fri 18 Oct 18</footer>
+			</details>
+		</figure>
+
+		<figure>
+			<button onclick="openImage('debugging_meme.png')">
+				<img src="img/debugging_meme350px.jpg" alt="debugging meme">
+				<figcaption>The Bug</figcaption>
+			</button>
+			<details>
+				<p> Can't argue with that XD XD! </p>
+				<footer>anonymous on Oct 20</footer>
+			</details>
+		</figure>
+
+		<figure>
+			<button onclick="openImage('no_sleep_meme.png')">
+				<img src="img/no_sleep_meme350px.jpg" alt="meme no-sleep">
+				<figcaption> Give me a Rest </figcaption>
+			</button>
+			<details>
+				<p> And we all now how it feels to work late thinking only about sleep. </p>
+				<footer>iWantToTakeANap on Tue 3 May 20</footer>
+			</details>
+		</figure>
+
+		<figure>
+			<button onclick="openImage('programming_or_googling_meme.png')">
+				<img src="img/programming_or_googling_meme350px.jpg" alt="meme google-meme">
+				<figcaption>Google it.</figcaption>
+			</button>
+			<details>
+				<p> Rather - Stackoverflow(ing)</p>
+				<footer>horseCowBoy2000 on Sun 28 Feb 21</footer>
+			</details>
+		</figure>
+
+		<figure>
+			<button onclick="openImage('enough_code_meme.png')">
+				<img src="img/enough_code_meme350px.jpg" alt="meme enough-for-today">
+				<figcaption>Enough For Today</figcaption>
+			</button>
+			<details>
+				<p>Too much for me. Let me rest now!</p>
+				<footer>anonymous on Sat 1 Jul 19</footer>
+			</details>
+		</figure>
+
+		<figure>
+			<button onclick="openImage('compile_meme.png')">
+				<img src="img/compile_meme350.jpg" alt="meme compilation-meme">
+				<figcaption>Compilation Pain.</figcaption>
+			</button>
+			<details>
+				<p> You all know the feeling when it all comes togeather :) </p>
+				<footer>ILoveBacon40 on Mon 5 Dec 20</footer>
+			</details>
+		</figure>
+
+		<figure>
+			<button onclick="openImage('comments_meme.png')">
+				<img src="img/comments_meme350px.jpg" alt="meme comments-meme">
+				<figcaption>Comment it!</figcaption>
+			</button>
+			<details>
+				<p> The good old tricks ;) </p>
+				<footer>pulgamecanica on Sat 4 Aug 20</footer>
+			</details>
+		</figure>
+
+		<figure>
+			<button onclick="openImage('programmers_pain_meme.jpeg')">
+				<img src="img/programmers_pain_meme350px.jpg" alt="meme programmers-humor-meme">
+				<figcaption>Programmers be like:</figcaption>
+			</button>
+			<details>
+				<p> Rather - Stackoverflow(ing)</p>
+				<footer>horseCowBoy2000 on Sun 28 Feb 21</footer>
+			</details>
+		</figure>
+
+		<figure>
+			<img src="img/logo200px.png">
+			<figcaption>TRoll</figcaption>
+			<details>
+				You've been trolled, there is nothing here. Hope you really get bored arround here.
+			Have a fun boring time.
+			<footer>THE PRRGRAMMER ∑Ω∆</footer>
+			</details>
+		</figure>
+	</div>
+{% endblock %}

@@ -36,7 +36,7 @@
 		  	<div class="collapsible-content">
 		  		<div class="card">
                   <div class="card-body">
-                    <a href="posts">
+                    <a href="{% url 'boring_website:posts' %}">
                     {% for post in posts %}
                         <div class="card-title">{{ post.title }}<h6 class="d-inline">{{ post.created_at.day }}/{{ post.created_at.month }}/{{ post.created_at.year }}</h6></div>
                         <div class="card-text"> <h5>{{ post.description }}</h5></div>
@@ -52,7 +52,7 @@
 		  	<div class="collapsible-content">
 		  		<div class="card">
                   <div class="card-body">
-                    <a href="games">
+                    <a href="{% url 'boring_website:games' %}">
                     {% for game in boringGames %}
                         <div class="card-title">{{ game.name }}</div>
                         <div class="card-text"> 
@@ -71,7 +71,7 @@
 		  	<div class="collapsible-content">
 		  		<div class="card">
                   <div class="card-body">
-                    <a href="posts">
+                    <a href="{% url 'boring_website:games' %}">
                     {% for game in creativeGames %}
                         <div class="card-title">{{ game.name }}</div>
                         <div class="card-text"> 
@@ -90,7 +90,7 @@
 		  	<div class="collapsible-content">
 		  		<div class="card">
                   <div class="card-body">
-                    <a href="posts">
+                    <a href="{% url 'boring_website:games' %}">
                     {% for game in uselessGames %}
                         <div class="card-title">{{ game.name }}</div>
                         <div class="card-text"> 
@@ -109,7 +109,7 @@
 		  	<div class="collapsible-content">
 		  		<div class="card">
                   <div class="card-body">
-                    <a href="posts">
+                    <a href="{% url 'boring_website:games' %}">
                     {% for game in frustrationGames %}
                         <div class="card-title">{{ game.name }}</div>
                         <div class="card-text"> 
@@ -134,78 +134,82 @@
     <div class="box compilation-box">
         <div class="compilation-container">    
             <h2>Most Popular</h2>
-            <a href="./posts">
-                <section class="compilation-post">
-                    <svg>
-                        <rect>
-                            <animate id="o1" begin="0;o1.end" dur="2s"
-                            attributeName="visibility" from="hide" to="hide"/>
-                        </rect>
-                        <circle fill="orange" cx="-50" cy="60" r="20">
-                            <animate begin="o1.begin" 
-                            attributeName="cx" from="220" to="50" dur="1s"/>
-                        </circle>
-                        <defs>
-                            <filter id="filter" x="0" y="0">
-                                <feGaussianBlur stdDeviation=".4"/>
-                            </filter>
-                        </defs>
-                        <circle cx="160" cy="90" r="18" fill="#4747d1" />
-                        <circle cx="80" cy="60" r="15" fill="#4747d1" />
-                        <circle cx="120" cy="70" r="40" fill="#4747d1" />
-                        <circle cx="80" cy="80" r="25" fill="#4747d1" />
-                        <circle cx="155" cy="70" r="15" fill="#4747d1" />
-                        <circle fill="orange" cx="-50" cy="60" r="20">
-                            <animate begin="o1.begin+5s" 
-                            attributeName="cx" from="50" to="220" dur="1s"/>
-                        </circle>
-                    </svg>
-                    <h1 class="link-icon"><i class="fas fa-link"></i></h1>
-                    <header>Posts<span class="element-date">Mon, 18 Sep 21</span></header>
-                    <h2>Boring Doggo</h2>
-                    {% load static %}
-                    <img src="{% static 'boring/images/doggoPost.png' %}" alt="dog beagle">
-                    <content>
-                        Chaquis The Beagle gets sooo bored when we go outside &#129315 &#129315 *Ignoring the ball completely &#128542*
-                    </content>
-                    <footer>DoggoMaster09</footer>
-                </section>
-            </a>
-            <section class="compilation-game">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <a href="./games">
-                                <h1 class="link-icon"><i class="fas fa-link"></i></h1>
-                                <header>Useless<span class="element-date">{{ game.created_at.month }}/{{ game.created_at.year }}</span></header>
-                                <h2>{{ game.name }}</h2>
-                                <i class="fas fa-user-ninja game-logo"></i>
-                                <content>
-                                    {{ game.description }}
-                                </content>
-                                <footer>KillMasterNinja {{ game.likes }}<i class="fas fa-thumbs-up"></i> </footer>
-                            </a>
-                        </div>
-                        <div class="flip-card-back">
-                            <article>
-                                <figure>
-                                {% comment %} Change ALL ninja ref's {% endcomment %}
-                                    <div id="dj-ninja-game">
-                                        <p id="ninja">{{ game.name }}</p>
-                                        <i onclick="revealNinja()" class="fas fa-user-ninja fa-rotate-90"></i>
-                                    </div>
-                                    <figcaption>Can you find DJ. Ninja?</figcaption>
-                                    <details>
-                                        <p>The Ninja is Hidding somewhere....</p>
-                                        <p>You can get a Hint.</p>
-                                        <footer><span class='hint'><button onclick="getHint('dj-ninja-game')"><i class="fas fa-question"></i></button></span><p>Developed by staggeringbeauty.com</p></footer>
-                                    </details>
-                                </figure>
-                            </article>
+            {% if post is not None %}
+                <a href="{% url 'boring_website:posts' %}">
+                    <section class="compilation-post">
+                        <svg>
+                            <rect>
+                                <animate id="o1" begin="0;o1.end" dur="2s"
+                                attributeName="visibility" from="hide" to="hide"/>
+                            </rect>
+                            <circle fill="orange" cx="-50" cy="60" r="20">
+                                <animate begin="o1.begin" 
+                                attributeName="cx" from="220" to="50" dur="1s"/>
+                            </circle>
+                            <defs>
+                                <filter id="filter" x="0" y="0">
+                                    <feGaussianBlur stdDeviation=".4"/>
+                                </filter>
+                            </defs>
+                            <circle cx="160" cy="90" r="18" fill="#4747d1" />
+                            <circle cx="80" cy="60" r="15" fill="#4747d1" />
+                            <circle cx="120" cy="70" r="40" fill="#4747d1" />
+                            <circle cx="80" cy="80" r="25" fill="#4747d1" />
+                            <circle cx="155" cy="70" r="15" fill="#4747d1" />
+                            <circle fill="orange" cx="-50" cy="60" r="20">
+                                <animate begin="o1.begin+5s" 
+                                attributeName="cx" from="50" to="220" dur="1s"/>
+                            </circle>
+                        </svg>
+                        <h1 class="link-icon"><i class="fas fa-link"></i></h1>
+                        <header>Post<span class="element-date">{{ post.created_at.day }}/{{ post.created_at.month }}/{{ post.created_at.year }}</span></header>
+                        <h2>{{ post.title }}</h2>
+                        {% load static %}
+                        <img src="{% static 'boring_website/images/doggoPost.png' %}" alt="dog beagle">
+                        <content>
+                            {{ post.description }}
+                        </content>
+                        <footer> {{ post.user.user.username }} </footer>
+                    </section>
+                </a>
+            {% endif %}
+            {% if game is not None %}
+                <section class="compilation-game">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <a href="{% url 'boring_website:games' %}">
+                                    <h1 class="link-icon"><i class="fas fa-link"></i></h1>
+                                    <header>Useless<span class="element-date">{{ game.created_at.month }}/{{ game.created_at.year }}</span></header>
+                                    <h2>{{ game.name }}</h2>
+                                    <i class="fas fa-user-ninja game-logo"></i>
+                                    <content>
+                                        {{ game.description }}
+                                    </content>
+                                    <footer>KillMasterNinja {{ game.likes }}<i class="fas fa-thumbs-up"></i> </footer>
+                                </a>
+                            </div>
+                            <div class="flip-card-back">
+                                <article>
+                                    <figure>
+                                    {% comment %} Change ALL ninja ref's {% endcomment %}
+                                        <div id="dj-ninja-game">
+                                            <p id="ninja">{{ game.name }}</p>
+                                            <i onclick="revealNinja()" class="fas fa-user-ninja fa-rotate-90"></i>
+                                        </div>
+                                        <figcaption>Can you find DJ. Ninja?</figcaption>
+                                        <details>
+                                            <p>The Ninja is Hidding somewhere....</p>
+                                            <p>You can get a Hint.</p>
+                                            <footer><span class='hint'><button onclick="getHint('dj-ninja-game')"><i class="fas fa-question"></i></button></span><p>Developed by staggeringbeauty.com</p></footer>
+                                        </details>
+                                    </figure>
+                                </article>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            {% endif %}
         </div>
     </div>
     <div class="box comments-box" id="comments-anchor">

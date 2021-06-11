@@ -9,7 +9,11 @@
 <link rel="stylesheet" href="{% static 'boring_website/css/base.css' %}">
 <link rel="stylesheet" href="{% static 'boring_website/css/home.css' %}">
 <link rel="stylesheet" href="{% static 'boring_website/css/faq.css' %}">
+<link rel="stylesheet" href="{% static 'boring_website/css/posts.css' %}">
+<link rel="stylesheet" href="{% static 'boring_website/css/games.css' %}">
 <script src={% static 'boring_website/js/home.js' %}></script>
+<script src={% static 'boring_website/js/posts.js' %}></script>
+<script src={% static 'boring_website/js/games.js' %}></script>
 </head>
 <body>
     <nav id="navBar">
@@ -17,14 +21,18 @@
 			<div class="topnav-centered">
 				<a href="./"><img src="{% static 'boring/images/logo100px.png' %}" alt="logo"></a>
 			</div>
-			<a href="./" class="active">Home</a>
-			<a href="./about">About</a>
-			<a href="./games">Games</a>
-			<a href="./posts">Posts</a>
-			<a href="./faq">FAQ</a>
+			<a href="{% url 'boring_website:home' %}" class="active">Home</a>
+			<a href="{% url 'boring_website:about' %}">About</a>
+			<a href="{% url 'boring_website:games' %}">Games</a>
+			<a href="{% url 'boring_website:posts' %}">Posts</a>
+			<a href="{% url 'boring_website:faq' %}">FAQ</a>
 			<div class="topnav-right">
 				<a id="darkMode" onclick="myFunction()"><i class="fas fa-moon"></i></a>
-				<a class="profile" href="./login.html"><i class="fas fa-user"></i></a>
+				{% if user.is_authenticated %}
+					<a class="profile" href="{% url 'boring:profile' %}"><i class="fas fa-user"></i></a>
+				{% else %}
+					<a class="profile" href="register.html">Login</a>
+				{% endif %}
 			</div>
 		</div>
 	</nav>
@@ -34,9 +42,9 @@
 		<div class="quick-links">
 			<h5>Boring Website</h5>
 			<span class="quicks">
-				<a href="./faq">FAQ</a>
+				<a href="{% url 'boring_website:faq' %}">FAQ</a>
 				<a href="./news">NEWS</a>
-				<a href="./about">ABOUT</a>
+				<a href="{% url 'boring_website:about' %}">ABOUT</a>
 				<a href="./website-guide">LAYOUTS</a>
 			</span>
 			<ul class="socials-list">

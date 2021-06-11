@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/72e594ef21.js" crossorigin="anonymous"></script>
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'boring/images/favicon.ico' %}"/>
+<link rel="stylesheet" href="{% static 'boring/css/base.css' %}">
+</head>
+<body>
+    <nav id="navBar">
+		<div class="topnav">
+			<div class="topnav-centered">
+				<a href="./"><img src="{% static 'boring/images/logo100px.png' %}" alt="logo"></a>
+			</div>
+			<a href="./" class="active">Home</a>
+			<a href="./about">About</a>
+			<a href="./games">Games</a>
+			<a href="./posts">Posts</a>
+			<a href="./faq">FAQ</a>
+			<div class="topnav-right">
+				<a id="darkMode" onclick="myFunction()"><i class="fas fa-moon"></i></a>
+				<a class="profile" href="./login.html"><i class="fas fa-user"></i></a>
+			</div>
+		</div>
+	</nav>
+	{% block main %}
+    {% endblock %}
+    <div class="footer">
+		<div class="quick-links">
+			<h5>Boring Website</h5>
+			<span class="quicks">
+				<a href="./faq">FAQ</a>
+				<a href="./news">NEWS</a>
+				<a href="./about">ABOUT</a>
+				<a href="./website-guide">LAYOUTS</a>
+			</span>
+			<ul class="socials-list">
+				<h3>
+					<li class="facebook"><a href=""><i class="fab fa-facebook"></i></a></li>
+					<li class="instagram"><a href=""><i class="fab fa-instagram"></i></a></li>
+					<li class="youtube"><a href=""><i class="fab fa-youtube"></i></a></li>
+					<li class="github"><a href=""><i class="fab fa-github-alt"></i></a></li>
+					<li class="twitch"><a href=""><i class="fab fa-twitch"></i></a></li>
+					<li class="hat"><a href=""><i class="fab fa-redhat"></i></a></li>
+				</h3>
+			</ul>
+			<h6>Tel: 999-999-999 <i class="fas fa-dot-circle"></i> contact@boring.org</h6>
+			<h6>Website by Pulgamecanica</h6>
+			<h6>Copyright <i class="far fa-copyright"></i>2021 | Designed by BORING </h6>
+		</div>
+	</div>
+</body>
+</html>

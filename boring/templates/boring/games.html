@@ -1,5 +1,24 @@
 {% extends 'boring_website/base.html' %}
 
 {% block main %}
-   <h1>Create games</h1>
+   <h1 class="text-center">{{ user.username }}'s Games</h1>
+   <div class="container boring-games-container">
+      <div class="row justify-content-center">
+         {% for game in games %}
+            <div class="card mb-3">
+               <div class="card-body">
+                  <h4 class="card-title"> {{ game.name }} </h4>
+                  <span class="card-text text-center">
+                     <h6> {{ game.getCat.1 }} </h6>
+                     <h1><i class="{{ game.iconClass1 }} {{ game.iconClass2 }}"></i></h1>   
+                     <a href="{% url 'boring:game' game.id %}" class="btn btn-primary btn-block">Edit</a>
+                     <a class="btn btn-danger btn-block">Destroy</a>
+                  </span>
+               </div>
+            </div>
+         {% empty %}
+            Uppsss, You don't have any games :(
+         {% endfor %}
+      </div>
+   </div>
 {% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'boring_website/base.html' %}
+
+{% block main %}
+   <h1 class="text-center">{{ user.username }}'s Post</h1>
+   <div class="container boring-games-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <div class="card mb-3">
+                    <div class="card-body text-center">
+                        <form action="POST">
+                            <label class="form-control m-0" for="title">Title</label>
+                            <input class="form-control" type="text" value="{{ post.title }}" id="title" name="title">
+                            <hr>
+                            <span class="card-text">
+                                <label class="form-control m-0" for="short_description">Short Desc</label>
+                                <input class="form-control" type="text" value="{{ post.short_description }}" id="short_description" name="short_description">
+                                <hr>
+                                <label class="form-control m-0" for="description">Description</label>
+                                <textarea class="form-control" type="textarea" id="description" name="description">{{ post.description }}</textarea>
+                                <hr>
+                                {% if post.active %}
+                                    <input class="form-control" type="checkbox" name="active" id="active" checked>
+                                {% else %}
+                                    <input class="form-control" type="checkbox" name="active" id="active">
+                                {% endif %}
+                                <br>
+                                <input type="submit" value="Update" class="btn btn-primary btn-block">
+                                <button class="btn btn-danger btn-block">Destroy</button>
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-12">
+                <div class="card mb-3">
+                    <div class="card-body text-center">
+                        <span class="float-right"> {{  post.created_at}}</span>
+                        <br>
+                        <h4 class="card-title"> {{ post.title }} </h4>
+                        <h6 class="card-title"> {{ post.short_description }} </h6>
+                        <span class="card-text">
+                            <h5> {{ post.description }} </h5>
+                            <h6>Active: {{ post.active }} </h6>   
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+{% endblock %}

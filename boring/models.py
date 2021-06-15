@@ -48,7 +48,7 @@ class Post(models.Model):
     def __str__(self):
         return f"{self.title} - Description: {self.description[:15]}... - Active: {self.active} ."
 class Comment(models.Model):
-    user = models.ForeignKey(BoringUser, on_delete=models.CASCADE, related_name="comments",)
+    user = models.ForeignKey(BoringUser, on_delete=models.CASCADE, related_name="comments")
     created_at = models.DateTimeField(auto_now_add=True)
     description = models.TextField(max_length = 250)
     likes = models.IntegerField(default=0)

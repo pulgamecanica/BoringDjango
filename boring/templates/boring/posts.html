@@ -1,4 +1,26 @@
 {% extends 'boring_website/base.html' %}
+
 {% block main %}
-    <h1>Create Posts!</h1>
+   <h1 class="text-center">{{ user.username }}'s Posts</h1>
+   <div class="container boring-games-container">
+      <div class="row justify-content-center">
+         {% for post in posts %}
+            <div class="card mb-3">
+               <div class="card-body text-center">
+                  <span class="float-right"> {{  post.created_at}}</span>
+                  <br>
+                  <h4 class="card-title"> {{ post.title }} </h4>
+                  <span class="card-text">
+                     <h5> {{ post.description }} </h5>
+                     <h6>Active: {{ post.active }} </h6>   
+                     <a href="{% url 'boring:post' post.id %}" class="btn btn-primary btn-block">Edit</a>
+                     <a class="btn btn-danger btn-block">Destroy</a>
+                  </span>
+                  </div>
+            </div>
+         {% empty %}
+            Uppsss, You don't have any posts :(
+         {% endfor %}
+      </div>
+   </div>
 {% endblock %}

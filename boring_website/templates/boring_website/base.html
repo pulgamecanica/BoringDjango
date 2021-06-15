@@ -4,6 +4,7 @@
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap" rel="stylesheet">
+<title>Boring Web</title>
 <script src="https://kit.fontawesome.com/72e594ef21.js" crossorigin="anonymous"></script>
 <link rel="shortcut icon" type="image/x-icon" href="{% static 'boring_website/images/favicon.ico' %}"/>
 <link rel="stylesheet" href="{% static 'boring_website/css/base.css' %}">
@@ -11,15 +12,18 @@
 <link rel="stylesheet" href="{% static 'boring_website/css/faq.css' %}">
 <link rel="stylesheet" href="{% static 'boring_website/css/posts.css' %}">
 <link rel="stylesheet" href="{% static 'boring_website/css/games.css' %}">
+<link rel="stylesheet" href="{% static 'boring/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'boring/css/boringGames.css' %}">
 <script src={% static 'boring_website/js/home.js' %}></script>
 <script src={% static 'boring_website/js/posts.js' %}></script>
 <script src={% static 'boring_website/js/games.js' %}></script>
+<script src={% static 'boring/js/profile.js' %}></script> 
 </head>
 <body>
     <nav id="navBar">
 		<div class="topnav">
 			<div class="topnav-centered">
-				<a href="./"><img src="{% static 'boring_website/images/logo100px.png' %}" alt="logo"></a>
+				<a href="{% url 'boring_website:home' %}"><img src="{% static 'boring_website/images/logo100px.png' %}" alt="logo"></a>
 			</div>
 			<a href="{% url 'boring_website:home' %}" class="active">Home</a>
 			<a href="{% url 'boring_website:about' %}">About</a>
@@ -31,7 +35,7 @@
 				{% if user.is_authenticated %}
 					<a class="profile" href="{% url 'boring:profile' %}"><i class="fas fa-user"></i></a>
 				{% else %}
-					<a class="profile" href="register.html">Login</a>
+					<a class="profile" href="{% url 'boring:login' %}">Login</a>
 				{% endif %}
 			</div>
 		</div>

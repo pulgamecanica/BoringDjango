@@ -1,1 +1,33 @@
-/* todo */
+.profile-contaner .profile-card {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+.profile-contaner .card {
+    margin-top: 0;
+    padding: 0;
+    height: 550px;
+}
+.profile-contaner .profile-content-card {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+.profile-contaner .profile-content-card .list-group-item {
+    background-color: transparent;
+}
+.profile-contaner .profile-content-card .card{
+    border: none;
+    background-color: transparent;
+}
+.profile-contaner #content-selected {
+    padding-top: 1rem;
+    text-align: center;
+}
+.profile-contaner #content-selected i {
+    padding: 0.2rem;
+    font-size: 150%;
+}
+.profile-contaner #content-selected i:hover {
+    cursor: pointer;
+    font-size: 160%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+}

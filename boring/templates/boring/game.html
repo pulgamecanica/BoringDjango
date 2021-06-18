@@ -7,46 +7,11 @@
             <div class="col-lg-5 col-md-5 col-sm-12">
                 <div class="card mb-3">
                     <div class="card-body text-center">
-                        <form action="POST">
-                            <label class="form-control m-0" for="name">Name</label>
-                            <input class="form-control" type="text" value="{{ game.name }}" id="name" name="name">
-                            <hr>
-                            <span class="card-text">
-                                <label class="form-control m-0" for="description">Description</label>
-                                <textarea class="form-control" type="textarea" id="description" name="description">{{ game.description }}</textarea>
-                                <hr>
-                                <label class="form-control m-0" for="iconClass1">IconClass1</label>
-                                <input class="form-control" type="text" value="{{ game.iconClass1 }}" id="iconClass1" name="iconClass1">
-                                <hr>
-                                <label class="form-control m-0" for="iconClass2">IconClass2</label>
-                                <input class="form-control" type="text" value="{{ game.iconClass2 }}" id="iconClass2" name="iconClass2">
-                                <hr>
-                                <label class="form-control m-0" for="function">Function</label>
-                                <input class="form-control" type="text" value="{{ game.function }}" id="function" name="function">
-                                <hr>
-                                <label class="form-control m-0" for="points_per_win">Points per Win</label>
-                                <input class="form-control" type="number" value="{{ game.points_per_win }}" id="points_per_win" name="points_per_win">
-                                <hr>
-                                <label class="form-control m-0" for="points_per_win">Category</label>
-                                <input type="radio" id="useless" name="category" value=0>
-                                <label for="useless">Useless</label>
-                                <input type="radio" id="creative" name="category" value=1>
-                                <label for="creative">Creative</label>
-                                <input type="radio" id="boring" name="category" value=2>
-                                <label for="boring">Boring</label>
-                                <input type="radio" id="frustration" name="category" value=3>
-                                <label for="frustration">Frustration</label>
-                                <hr>
-                                <label class="form-control" for="active">Active</label>
-                                {% if game.active %}
-                                    <input class="form-control" type="checkbox" name="active" id="active" checked>
-                                {% else %}
-                                    <input class="form-control" type="checkbox" name="active" id="active">
-                                {% endif %}
-                                <br>
-                                <input type="submit" value="Update" class="btn btn-primary btn-block">
-                                <button class="btn btn-danger btn-block">Destroy</button>
-                            </span>
+                        <form action="{% url 'boring:game' game.id %}" method="post">
+                            {% csrf_token %}
+                            {{ form.as_table }}
+                            <input type="submit" value="Update" class="btn btn-primary btn-block">
+                            <a href={% url 'boring:delete_game' game.id %} class="btn btn-danger btn-block">Destroy</a>
                         </form>
                     </div>
                 </div>
@@ -60,6 +25,7 @@
                             <h1><i class="{{ game.iconClass1 }} {{ game.iconClass2 }}"></i></h1>
                             <p>Points per Win: {{ game.points_per_win }}</p>
                             <p>Function: {{ game.function }}</p>
+                            <p>Description: {{ game.description }}</p>
                             {% if game.active %}
                                 <span class="badge badge-success">Active</span>
                             {% else %}

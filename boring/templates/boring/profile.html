@@ -1,7 +1,7 @@
 {% extends 'boring_website/base.html' %}
 {% block main %}
       <div class="container mt-3 mb-3 profile-contaner">
-         <div class="row justify-content-between">
+         <div class="flex row justify-content-between">
             <div class="col-lg-4 col-sm-12 mb-3">
                <div class="card profile-card">
                   {% load static %}
@@ -10,8 +10,8 @@
                      <hr>
                      <button onclick="goBack()" class="btn btn-light btn-block"><h6 class="card-title"><i class="fas fa-user"></i> {{ user.username }} </h6></button>
                      <div class="d-flex justify-content-between mt-3">
-                        <button onclick="newPost()" class="btn btn-dark btn-block m-0 mr-1" ><i class="fas fa-plus-circle"></i> Post</button>
-                        <button onclick="newGame()" class="btn btn-dark btn-block m-0 ml-1"><i class="fas fa-plus-circle"></i> Game</button>
+                        <button onclick="newPost();" class="btn btn-dark btn-block m-0 mr-1" ><i class="fas fa-plus-circle"></i> Post</button>
+                        <button onclick="newGame();" class="btn btn-dark btn-block m-0 ml-1"><i class="fas fa-plus-circle"></i> Game</button>
                      </div>
                      <button onclick="openShop()" class="btn btn-light btn-block mt-3"><i class="fas fa-store-alt text-dark"></i></i> Shop</button>
                   </div>
@@ -19,7 +19,7 @@
             </div>
             <div class="col-lg-8 col-sm-12">
                <div class="card profile-content-card">
-                  <div class="card-body">
+                  <div class="card-body p-4">
                      <div id="profile-menu">
                         <p>Hello {{ user.username }}, we hope that you are very bored...</p>
                         <hr>
@@ -35,6 +35,21 @@
                         </div>
                      </div>
                      <div id="content-selected">
+                        <h3 id="content-selected-header"></h3>
+                        <span class="form" id="post-form">
+                           <form action="{% url 'boring:create_new_post' %}" method="post">
+                              {% csrf_token %}
+                              {{ post_form }}
+                              <input class="btn btn-primary mt-3" type="submit" value="Create Post">
+                           </form>
+                        </span>
+                        <span class="form" id="game-form">
+                           <form action="{% url 'boring:create_new_game' %}" method="post">
+                              {% csrf_token %}
+                              {{ game_form }}
+                              <input class="btn btn-primary mt-3" type="submit" value="Create Game">
+                           </form>
+                        </span>
                      </div>
                   </div>
                </div>

@@ -23,7 +23,7 @@ class Game(models.Model):
     iconClass1 = models.CharField(max_length = 5, blank=True, default='')
     iconClass2 = models.CharField(max_length = 15, blank=True, default='')
     function = models.CharField(max_length = 100, default='')
-    points_per_win = models.IntegerField(default = False)
+    points_per_win = models.IntegerField(default = 10)
     likes = models.IntegerField(default = 0)
     active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -58,6 +58,7 @@ class Comment(models.Model):
 
 class Item(models.Model):
     user = ManyToManyField(BoringUser)
-    price_coins = models.IntegerField(blank=True)
-    price_diamonds = models.IntegerField(blank=True)
+    price_coins = models.IntegerField()
+    price_diamonds = models.IntegerField(blank=True, default=0)
+    name = models.CharField(max_length=50, default="Boring Item")
     description = models.TextField(max_length = 150)

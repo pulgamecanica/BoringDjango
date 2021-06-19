@@ -1,67 +1,84 @@
 {% extends 'boring_website/base.html' %}
 {% block main %}
-      <div class="container mt-3 mb-3 profile-contaner">
-         <div class="flex row justify-content-between">
-            <div class="col-lg-4 col-sm-12 mb-3">
-               <div class="card profile-card">
-                  {% load static %}
-                  <img class="card-img-top pl-4 pr-4 pt-4" src="{% static 'boring/images/logo200px.png' %}" alt="profile-logo">
-                  <div class="card-body">
-                     <hr>
-                     <h5 class="text-center">Wallet: <i class="fas fa-coins"></i> {{ user.boringuser.boring_coins }} <i class="far fa-gem"></i> {{ user.boringuser.boring_diamonds }}</h5>
-                     <button onclick="goBack()" class="btn btn-light btn-block">
-                        <h6 class="card-title">
-                           <i class="fas fa-user"></i> 
-                           {{ user.username }} 
-                           <br>
-                           <p>Bio: {{user.boringuser.bio}}</p>
-                        </h6>
-                     </button>
-                     <div class="d-flex justify-content-between mt-3">
-                        <button onclick="newPost();" class="btn btn-dark btn-block m-0 mr-1" ><i class="fas fa-plus-circle"></i> Post</button>
-                        <button onclick="newGame();" class="btn btn-dark btn-block m-0 ml-1"><i class="fas fa-plus-circle"></i> Game</button>
-                     </div>
-                     <button onclick="openShop()" class="btn btn-light btn-block mt-3"><i class="fas fa-store-alt text-dark"></i></i> Shop</button>
+   {% if not message == "" %}
+      <h1 class="text-danger" id="notice">{{ message }}</h1>
+   {% endif %}
+   <div class="container mt-3 mb-3 profile-contaner">
+      <div class="flex row justify-content-between">
+         <div class="col-lg-4 col-sm-12 mb-3">
+            <div class="card profile-card">
+               {% load static %}
+               <img class="card-img-top pl-4 pr-4 pt-4" src="{% static 'boring/images/logo200px.png' %}" alt="profile-logo">
+               <div class="card-body">
+                  <hr>
+                  <h5 class="text-center">Wallet: <i class="fas fa-coins"></i> {{ user.boringuser.boring_coins }} <i class="far fa-gem"></i> {{ user.boringuser.boring_diamonds }}</h5>
+                  <button onclick="goBack()" class="btn btn-light btn-block">
+                     <h6 class="card-title">
+                        <i class="fas fa-user"></i> 
+                        {{ user.username }} 
+                        <br>
+                        <p>Bio: {{user.boringuser.bio}}</p>
+                     </h6>
+                  </button>
+                  <div class="d-flex justify-content-between mt-3">
+                     <button onclick="newPost();" class="btn btn-dark btn-block m-0 mr-1" ><i class="fas fa-plus-circle"></i> Post</button>
+                     <button onclick="newGame();" class="btn btn-dark btn-block m-0 ml-1"><i class="fas fa-plus-circle"></i> Game</button>
                   </div>
+                  <button onclick="openShop()" class="btn btn-light btn-block mt-3"><i class="fas fa-store-alt text-dark"></i></i> Shop</button>
                </div>
             </div>
-            <div class="col-lg-8 col-sm-12">
-               <div class="card profile-content-card">
-                  <div class="card-body p-4">
-                     <div id="profile-menu">
-                        <p>Hello {{ user.username }}, we hope that you are very bored...</p>
-                        <hr>
-                        <h2 class="text-center">Menu</h2>
-                        <div class="card">
-                           <ul class="list-group list-group-flush">
-                              <li class="list-group-item"><a class="btn btn-primary btn-block" href="{% url 'boring:games' %}">Show my Games</a></li>
-                              <li class="list-group-item"><a class="btn btn-primary btn-block" href="{% url 'boring:posts' %}">Show my Posts</a></li>
-                              <li class="list-group-item"><button onclick="showItems()" class="btn btn-primary btn-block">Items</button></li>
-                              <li class="list-group-item"><button onclick="openSettings()" class="btn btn-dark btn-block">Settings</button></li>
-                              <li class="list-group-item"><a href="{% url 'boring:logout' %}" class="btn btn-danger btn-block">Logout</a></li>
-                           </ul>
-                        </div>
+         </div>
+         <div class="col-lg-8 col-sm-12">
+            <div class="card profile-content-card">
+               <div class="card-body p-4">
+                  <div id="profile-menu">
+                     <p>Hello {{ user.username }}, we hope that you are very bored...</p>
+                     <hr>
+                     <h2 class="text-center">Menu</h2>
+                     <div class="card">
+                        <ul class="list-group list-group-flush">
+                           <li class="list-group-item"><a class="btn btn-primary btn-block" href="{% url 'boring:games' %}">Show my Games</a></li>
+                           <li class="list-group-item"><a class="btn btn-primary btn-block" href="{% url 'boring:posts' %}">Show my Posts</a></li>
+                           <li class="list-group-item"><button onclick="showItems()" class="btn btn-primary btn-block">Items</button></li>
+                           <li class="list-group-item"><button onclick="openSettings()" class="btn btn-dark btn-block">Settings</button></li>
+                           <li class="list-group-item"><a href="{% url 'boring:logout' %}" class="btn btn-danger btn-block">Logout</a></li>
+                        </ul>
                      </div>
-                     <div id="content-selected">
-                        <h3 id="content-selected-header"></h3>
-                        <span class="form" id="post-form">
-                           <form action="{% url 'boring:create_new_post' %}" method="post">
-                              {% csrf_token %}
-                              {{ post_form }}
-                              <input class="btn btn-primary mt-3" type="submit" value="Create Post">
-                           </form>
-                        </span>
-                        <span class="form" id="game-form">
-                           <form action="{% url 'boring:create_new_game' %}" method="post">
-                              {% csrf_token %}
-                              {{ game_form }}
-                              <input class="btn btn-primary mt-3" type="submit" value="Create Game">
-                           </form>
-                        </span>
-                     </div>
+                  </div>
+                  <div id="content-selected">
+                     <h3 id="content-selected-header"></h3>
+                     <span class="form" id="post-form">
+                        <form action="{% url 'boring:create_new_post' %}" method="post">
+                           {% csrf_token %}
+                           {{ post_form }}
+                           <input class="btn btn-primary mt-3" type="submit" value="Create Post">
+                        </form>
+                     </span>
+                     <span class="form" id="game-form">
+                        <form action="{% url 'boring:create_new_game' %}" method="post">
+                           {% csrf_token %}
+                           {{ game_form }}
+                           <input class="btn btn-primary mt-3" type="submit" value="Create Game">
+                        </form>
+                     </span>
+                     <span class="form" id="settings-form">
+                        <form action="{% url 'boring:change_settings' %}" method="post">
+                           {% csrf_token %}
+                           {{ settings_form }}
+                           <input class="btn btn-primary mt-3" type="submit" value="Change Settings">
+                        </form>
+                     </span>
+                     <span class="form" id="items-collection">
+                        {% for item in user.boringuser.item_set.all %}
+                           <p>{{item.name}}</p>
+                        {% empty %}
+                           <p> Sorry you don't have any items...</p>
+                        {% endfor %}
+                     </span>
                   </div>
                </div>
             </div>
          </div>
       </div>
+   </div>
 {% endblock %}

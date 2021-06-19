@@ -6,11 +6,11 @@ from django.contrib.auth import authenticate, logout, login
 from django.http import HttpResponse, request
 from django.contrib.auth.models import User
 from .models import Game, Post, BoringUser
-from .forms import GameForm, PostForm, LoginForm, RegisterForm
+from .forms import GameForm, PostForm, LoginForm, RegisterForm, SettingsForm
 
 @login_required(login_url='./login')
-def profile_page_view(request):
-    return render(request, 'boring/profile.html', {'post_form': PostForm(), 'game_form': GameForm()})
+def profile_page_view(request, message=""):
+    return render(request, 'boring/profile.html', {'message': message, 'post_form': PostForm(), 'game_form': GameForm(), 'settings_form': SettingsForm()})
 
 def login_page_view(request, message=""):
     if request.user.is_authenticated:
@@ -30,7 +30,7 @@ def login_user(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return profile_page_view(request)
+                return profile_page_view(request, message=f"Welcome Back {user.username}.")
             else:
                 return login_page_view(request, message = "Invalid Credentials")
     return login_page_view(request, message= "Something went wrong!")
@@ -45,7 +45,7 @@ def register_user(request):
             BoringUser.objects.create(user=user, bio=form.cleaned_data['bio'])
             if user is not None:
                 login(request, user)
-                return profile_page_view(request)
+                return profile_page_view(request, message="Welcome!")
     return login_page_view(request, message= "Something went wrong!")
 
 @login_required(login_url='./login')
@@ -144,3 +144,32 @@ def delete_game(request, game_id):
 def delete_post(request, post_id):
     Post.objects.get(pk=post_id).delete()
     return profile_page_view(request)
+
+@login_required(login_url='./login')
+def change_settings(request):
+    if request.method == 'POST':
+        form = SettingsForm(request.POST)
+        if form.is_valid():
+            user = User.objects.get(id=request.user.id)
+            boring_user = BoringUser.objects.get(user=request.user)
+            username = form.cleaned_data['username']
+            old_password = form.cleaned_data['old_password']
+            new_password = form.cleaned_data['new_password']
+            password_confirmation = form.cleaned_data['password_confirmation']
+            bio = form.cleaned_data['bio']
+            if bio:
+                boring_user.bio = bio
+            if new_password:
+                if authenticate(username=user.username, password=old_password) is not None:
+                    if new_password == password_confirmation:
+                        user.set_password(new_password)
+                    else:
+                        return profile_page_view(request, message="The new password must match the password confirmation!")
+                else:
+                    return profile_page_view(request, message="Invalid credentials!")
+            if user.username != username:
+                user.username = username
+            user.save()
+            boring_user.save()
+            return profile_page_view(request, message="Updated!")
+    return profile_page_view(request, message="We couldn't update the settings :( !")

@@ -18,4 +18,5 @@ urlpatterns = [
     path('delete_post/<int:post_id>', views.delete_post, name="delete_post" ),
     path('login_user', views.login_user, name="login_user"),
     path('register_user', views.register_user, name="register_user"),
+    path('change_settings', views.change_settings, name="change_settings"),
 ]

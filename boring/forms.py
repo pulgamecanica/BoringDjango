@@ -23,3 +23,9 @@ class RegisterForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
     password_confirmation = forms.CharField(widget=forms.PasswordInput, label="Password Confirmation")
     bio = forms.CharField(widget=forms.Textarea, label="Bio", min_length=20)
+class SettingsForm(forms.Form):
+    username = forms.CharField(required=False, label="Username")
+    old_password = forms.CharField(required=False, widget=forms.PasswordInput, label="Old Password")
+    new_password = forms.CharField(required=False, widget=forms.PasswordInput, label="New Password")
+    password_confirmation = forms.CharField(required=False, widget=forms.PasswordInput, label="New Password Confirmation")
+    bio = forms.CharField(required=False, widget=forms.Textarea, label="Bio", min_length=20)

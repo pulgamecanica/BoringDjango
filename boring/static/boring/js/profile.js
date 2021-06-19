@@ -43,10 +43,13 @@ function openShop() {
     openWindow("Shop!");
 }
 function openSettings() {
-    openWindow("Settings!");
+    openWindow("Settings");
+    showElement('settings-form');
+
 }
 function showItems() {
-    openWindow("Items!");
+    openWindow("Your Items!");
+    showElement("items-collection");
 }
 function goBack(params) {
     document.querySelector('#content-selected-header').innerHTML = "";

@@ -1,0 +1,50 @@
+#login-signup {
+	text-align: center;
+	font-size: 200%;
+	color: #444;
+}
+.login-signup-container {
+	display: grid;
+	grid-template-columns: repeat(2, [col] 50% );
+	grid-template-rows: auto;
+	padding: 1rem;
+}
+.login-signup-container form {
+	border-radius: 1em;
+	background: rgba(176, 62, 230, 0.95);
+	margin: auto;
+}
+.login-signup-container form h3 {
+	margin: 0;
+	width: 100%;
+	padding: 0.5rem 0 0.5rem 0;
+	border-radius: 0.5em 0.5em 0 0;
+	text-align: center;
+	font-size: 150%;
+    color: #ffebf6;;
+	background-color: #5712c7e6;
+}
+.login-signup-container form input {
+	min-width: 15rem;
+	display: block;
+	padding: 1rem;
+	margin: 0.5rem auto;
+}
+.login-signup-container form .submit {
+	background: #5712c7e6;
+	border: 0;
+	font-size: 150%;
+	border-radius: 1em;
+    padding-bottom: 3rem;
+    color: #ffebf6;;
+}
+.login-signup-container form .center-element {margin: auto;text-align: center;}
+.login-signup-container form .container {display: inline;}
+.login-signup-container .signup {grid-column: 1 / 2;grid-row: 1;}
+.login-signup-container .login {grid-column: 2 / 3;grid-row: 1;}
+@media only screen and (max-width: 900px) {
+    .login-signup-container {grid-template-columns: repeat(1, [col] 100% );margin: auto;}
+    .login-signup-container form {margin-bottom: 1rem;width: 100%;}
+    .login-signup-container .signup {grid-column: 1;grid-row: 2;}
+    .login-signup-container .login {grid-column: 1;grid-row: 1;}
+}

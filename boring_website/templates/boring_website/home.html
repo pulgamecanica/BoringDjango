@@ -4,7 +4,6 @@
     <div class="box intro-box">
         <h6 class="breadcrums">Home / </h6>
         <h1 class="title">THE VERY, VERY BORING WEBSITE</h1>
-        {% comment %} SHould display the real user if exists and update date! and GO  play button! {% endcomment %}
         <h6><i class="fas fa-certificate"></i><b> BoringUser99</b> (Updated on Oct 18, 2022)</h6>
         <p>Welcome neophyte, this website will bring you many boring experiences and quickly you will feel very bored.<br>
         We developed many boring games, we can assure that anyone that plays our games will get bored!<br>
@@ -15,14 +14,12 @@
         <div class="box contents-box">
             <div class="contents-container">
                 <h2><b>Boring Content</b></h2>
-                <ul>
-                    <li><a onclick="collapse('boring-posts')" href="#boring-posts-anchor"><i class="fas fa-flag">Boring Posts</i></a></li>
-                    <li><a onclick="collapse('boring-games')" href="#boring-games-anchor"><i class="fas fa-flag">Boring Games</i></a></li>
-                    <li><a onclick="collapse('creative-games')" href="#creative-games-anchor"><i class="fas fa-flag">Creative Games</i></a></li>
-                    <li><a onclick="collapse('useless-box')" href="#useless-anchor"><i class="fas fa-flag">Useless</i></a></li>
-                    <li><a onclick="collapse('frustration')" type href="#frustration-anchor"><i class="fas fa-flag">Frustration</i></a></li>
-                    <li><a href="#comments-anchor"><i class="fas fa-flag">Comments</i></a></li>
-                </ul>
+                    <a onclick="collapse('boring-posts')" href="#boring-posts-anchor"><i class="fas fa-flag"></i> Boring Posts</a>
+                    <a onclick="collapse('boring-games')" href="#boring-games-anchor"><i class="fas fa-flag"></i> Boring Games</a>
+                    <a onclick="collapse('creative-games')" href="#creative-games-anchor"><i class="fas fa-flag"></i> Creative Games</a>
+                    <a onclick="collapse('useless-box')" href="#useless-anchor"><i class="fas fa-flag"></i> Useless</a></li>
+                    <a onclick="collapse('frustration')" type href="#frustration-anchor"><i class="fas fa-flag"></i> Frustration</a>
+                    <a href="#comments-anchor"><i class="fas fa-flag"></i> Comments</a>
             </div>
         </div>
         <div class="box donation-box">
@@ -217,8 +214,10 @@
             <h2><label for="comment">Comments</label></h2>
             <form>
                 <div class="comment-container">
-                    <div class="user-icon"><i class="far fa-user-circle"></i></div>
-                    <input type="text" name="comment" id="comment" placeholder="Add a public comment...">
+                    <div class="input-group">
+                        <span class="input-group-text user-icon"><i class="far fa-user-circle"></i></span>
+                        <input type="text" name="comment" id="comment" placeholder="Add a public comment...">
+                    </div>
                 </div>
             </form>
             <hr>

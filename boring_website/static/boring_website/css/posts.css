@@ -36,10 +36,7 @@
 	color: #444;
 	padding-bottom: 0;
 }
-.posts_wrapper figure button {
-	background: none;
-	border: none;
-}
+.posts_wrapper figure button {background: none;border: none;}
 .posts_wrapper figure img:hover {opacity: 0.75;}
 .posts_wrapper figure details { 
 	margin-top: 1rem;
@@ -65,10 +62,7 @@
 	border-radius: 1em;
 	padding: 1rem;
 }
-.posts_wrapper #imageWindowDisplayer img {
-	border-radius: 0 1em 0 0;
-	max-height: 600px;
-}
+.posts_wrapper #imageWindowDisplayer img {border-radius: 0 1em 0 0;max-height: 600px;}
 .posts_wrapper #imageWindowDisplayer i {
 	cursor: pointer;
 	position: absolute;
@@ -77,6 +71,4 @@
 	font-size: 200%;
 	color: red;
 }
-.posts_wrapper  #imageWindowDisplayer i:hover {
-	font-size: 250%;
-}
+.posts_wrapper  #imageWindowDisplayer i:hover {font-size: 250%;}

@@ -297,13 +297,3 @@ function loadGame(gameName) {
 		game[j].style.display = "block";
 	}
 }
-
-
-
-
-
-
-
-
-
-

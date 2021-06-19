@@ -1,4 +1,25 @@
 {% extends 'boring_website/base.html' %}
 {% block main %}
-    <h1>Login Register!</h1>
+    {% if not message == "" %}
+         <h1>{{ message }}</h1>
+    {% endif %}
+    <h1 id="login-signup"> Login / SignUp</h1>
+	<div class="login-signup-container">
+		<form action="{% url 'boring:login_user' %}" method="post">
+            <h3>Login</h3>
+            {% csrf_token %}
+            <div class="p-3">
+                {{ login_form }}
+                <input class="btn btn-primary mt-3 submit" type="submit" value="Login">
+            </div>
+        </form>
+        <form action="{% url 'boring:register_user' %}" method="post">
+            <h3>Register</h3>
+            {% csrf_token %}
+            <div class="p-3">
+                {{ register_form }}
+                <input class="btn btn-primary mt-3 submit" type="submit" value="Register">
+            </div>
+        </form>
+	</div>
 {% endblock %}

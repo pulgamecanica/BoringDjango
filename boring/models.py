@@ -2,7 +2,7 @@ from typing import Optional
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.fields.related import ManyToManyField
-# Create your models here.
+
 class BoringUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     boring_coins = models.IntegerField(default=100)
@@ -11,8 +11,9 @@ class BoringUser(models.Model):
     level = models.IntegerField(default=0)
     def __str__(self):
         return f"Name: {self.user.username}, Coins: {self.boring_coins} | {self.boring_diamonds}"
+
 class Game(models.Model):
-    class GameCategory(models.TextChoices):    # Category
+    class GameCategory(models.TextChoices):
         USELESS = 0
         CREATIVE = 1
         BORING = 2
@@ -36,6 +37,7 @@ class Game(models.Model):
         return self.GameCategory.choices[self.category]
     def __str__(self):
         return f"{self.name} - Description: {self.description[:15]}... - Active: {self.active} ."
+
 class Post(models.Model):
     title = models.CharField(max_length = 30)
     description = models.TextField(max_length = 150)
@@ -47,11 +49,13 @@ class Post(models.Model):
     user = models.ForeignKey(BoringUser, on_delete=models.CASCADE, related_name="posts")
     def __str__(self):
         return f"{self.title} - Description: {self.description[:15]}... - Active: {self.active} ."
+
 class Comment(models.Model):
     user = models.ForeignKey(BoringUser, on_delete=models.CASCADE, related_name="comments")
     created_at = models.DateTimeField(auto_now_add=True)
     description = models.TextField(max_length = 250)
     likes = models.IntegerField(default=0)
+
 class Item(models.Model):
     user = ManyToManyField(BoringUser)
     price_coins = models.IntegerField(blank=True)

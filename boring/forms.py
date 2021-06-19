@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import PasswordInput
 from .models import *
 class GameForm(forms.Form):
     name = forms.CharField(required=False, label='Game name', max_length=30)
@@ -14,4 +15,11 @@ class PostForm(forms.Form):
     description = forms.CharField(widget=forms.Textarea, required=False, label='Post Description', max_length=150)
     short_description = forms.CharField(required=False, label='Post Short Description', max_length=15)
     active = forms.BooleanField(required=False)
-
+class LoginForm(forms.Form):
+    username = forms.CharField(label="Username")
+    password = forms.CharField(widget=forms.PasswordInput, label="Password")
+class RegisterForm(forms.Form):
+    username = forms.CharField(label="Username")
+    password = forms.CharField(widget=forms.PasswordInput, label="Password")
+    password_confirmation = forms.CharField(widget=forms.PasswordInput, label="Password Confirmation")
+    bio = forms.CharField(widget=forms.Textarea, label="Bio", min_length=20)

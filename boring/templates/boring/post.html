@@ -1,7 +1,7 @@
 {% extends 'boring_website/base.html' %}
 
 {% block main %}
-   <h1 class="text-center">{{ user.username }}'s Post</h1>
+   <h1 class="text-center"><a href={% url 'boring:profile' %}><i class="fas fa-arrow-left text-dark"></i></a>  {{ user.username }}'s Post</h1>
    <div class="container boring-games-container">
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-5 col-sm-12">

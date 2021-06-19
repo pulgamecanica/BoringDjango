@@ -1,3 +1,4 @@
+html {scroll-behavior: smooth;}
 body {
 	margin: 0;
 	background: linear-gradient(-45deg, #17eb76, #0be683, #4fe3b9, #8cd5ff, #d380ff, #f7a3f6);
@@ -5,9 +6,7 @@ body {
 	animation: gradient 10s ease infinite;
 	font-family: 'Nova Mono', monospace;
 }
-#navBar {
-	z-index: 999;
-}
+#navBar {z-index: 999;}
 .topnav {
 	position: relative;
 	overflow: hidden;
@@ -83,18 +82,7 @@ body {
 	}
 }
 @media only screen and (max-width: 900px) {
-	.topnav{
-		width: 100%;
-		text-align: center;
-	}
-	.topnav a, .topnav-right {
-		float: none;
-		display: block
-	}
-	.topnav-centered a {
-		position: relative;
-		top: 0;
-		left: 0;
-		transform: none;
-	}
+	.topnav{width: 100%;text-align: center;}
+	.topnav a, .topnav-right {float: none;display: block}
+	.topnav-centered a {position: relative;top: 0;left: 0;transform: none;}
 }

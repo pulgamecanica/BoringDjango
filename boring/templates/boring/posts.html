@@ -1,7 +1,7 @@
 {% extends 'boring_website/base.html' %}
 
 {% block main %}
-   <h1 class="text-center">{{ user.username }}'s Posts</h1>
+   <h1 class="text-center"><a href={% url 'boring:profile' %}><i class="fas fa-arrow-left text-dark"></i></a> {{ user.username }}'s Posts</h1>
    <div class="container boring-games-container">
       <div class="row justify-content-center">
          {% for post in posts %}
@@ -14,7 +14,7 @@
                      <h5> {{ post.description }} </h5>
                      <h6>Active: {{ post.active }} </h6>   
                      <a href="{% url 'boring:post' post.id %}" class="btn btn-primary btn-block">Edit</a>
-                     <a href={% url 'boring:delete_post' post.id %} class="btn btn-danger btn-block" onclick="return confirm('Do you really want to delete: {{post.title}}')">Destroy</a>
+                     <a href={% url 'boring:delete_post' post.id %} class="btn btn-danger btn-block" onclick="return confirm('Please, confirm action:\nDelete {{post.title}}')">Destroy</a>
                   </span>
                   </div>
             </div>

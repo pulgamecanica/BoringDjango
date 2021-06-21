@@ -84,7 +84,6 @@ function showElement(name) {
 function filterItemType(url_type) {
     $.ajax({
         type: "GET",
-        // url: 'filter_items'+'/'+type,
         url: url_type,
         success: function (response) {
             document.querySelector('#shop-items-container').innerHTML = "";

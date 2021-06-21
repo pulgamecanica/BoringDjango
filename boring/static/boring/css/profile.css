@@ -11,8 +11,21 @@
 .profile-contaner #content-selected i {padding: 0.2rem;font-size: 150%;}
 .profile-contaner #content-selected i:hover {
     cursor: pointer;
-    font-size: 160%;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 1rem;
+    opacity: 0.5;
 }
 .profile-contaner #content-selected .form {display: none;}
+.profile-contaner #content-selected .shop-card {
+    border: gray 2px solid;
+    max-width: 300px;
+}
+.profile-contaner #content-selected .shop-top {
+    border-bottom: rgba(0, 0, 0, 0.4) 5px solid;
+}
+.profile-contaner #content-selected .shop-top ul {
+    text-align: left;;
+    margin: 0;
+    padding: 0;
+}
+.profile-contaner #content-selected .shop-top ul li {display: inline-block;}
+.profile-contaner #content-selected .shop-top li {padding: 0.25rem;vertical-align: bottom;}
+.profile-contaner #content-selected .shop-top .active {background-color: rgba(0, 0, 0, 0.4);}

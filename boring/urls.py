@@ -19,4 +19,6 @@ urlpatterns = [
     path('login_user', views.login_user, name="login_user"),
     path('register_user', views.register_user, name="register_user"),
     path('change_settings', views.change_settings, name="change_settings"),
+    path('boring_transaction/<int:item_id>', views.boring_transaction, name="boring_transaction"),
+    path('filter_items/<slug:item_type>', views.filter_items, name="filter_items"),
 ]

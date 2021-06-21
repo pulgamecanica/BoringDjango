@@ -64,6 +64,14 @@ body {
 .footer .socials-list .github a { color: #4078c0;}
 .footer .socials-list .twitch a {color: #9147fe;}
 .footer .socials-list .hat a {color: gray;}
+#notice {
+	position: absolute;
+	z-index: 10;
+	margin-top: 1rem;
+    background: rgba(0, 0 ,0 ,0.6);
+    padding: 0.5rem;
+    border-radius: 1em;
+}
 @keyframes gradient {
 	0% {
 	  background-position: 0% 50%;

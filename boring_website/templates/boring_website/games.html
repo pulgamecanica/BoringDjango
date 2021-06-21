@@ -1,7 +1,7 @@
 {% extends 'boring_website/base.html' %}
 
 {% block main %}
-<div class="games-container">
+<div class="games-container" id="games-active">
         {% load static %}
 		<h1><img src="{% static 'boring_website/images/logo100px.png' %}">GAMES <i class="fas fa-gamepad"></i></h1>
         {% for index, category in games_by_cat %}

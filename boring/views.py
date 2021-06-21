@@ -1,16 +1,17 @@
 import boring
-from django.db.models.query_utils import Q
+from django.http.response import JsonResponse
+from django.core.serializers import serialize
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, logout, login
 from django.http import HttpResponse, request
 from django.contrib.auth.models import User
-from .models import Game, Post, BoringUser
+from .models import Game, Post, BoringUser, Item
 from .forms import GameForm, PostForm, LoginForm, RegisterForm, SettingsForm
 
 @login_required(login_url='./login')
 def profile_page_view(request, message=""):
-    return render(request, 'boring/profile.html', {'message': message, 'post_form': PostForm(), 'game_form': GameForm(), 'settings_form': SettingsForm()})
+    return render(request, 'boring/profile.html', {'message': message, 'post_form': PostForm(), 'game_form': GameForm(), 'settings_form': SettingsForm(), 'shop': Item.objects.all()})
 
 def login_page_view(request, message=""):
     if request.user.is_authenticated:
@@ -173,3 +174,21 @@ def change_settings(request):
             boring_user.save()
             return profile_page_view(request, message="Updated!")
     return profile_page_view(request, message="We couldn't update the settings :( !")
+
+@login_required(login_url='./login')
+def boring_transaction(request, item_id):
+    item = Item.objects.get(pk=item_id)
+    if request.user.boringuser.boring_transaction(item):
+        return profile_page_view(request, message=f"Item: {item.name}, bought! :D.")
+    else:
+        return profile_page_view(request, message="Sorry, something went wrong! :/....")
+
+@login_required(login_url='./login')
+def filter_items(request, item_type):
+    if item_type.capitalize() in [type[0] for type in Item.ItemType.choices]:
+        response = {'items': serialize('json', Item.objects.filter(type=item_type))}
+    else:
+        response = {'items': serialize('json', Item.objects.all())}
+    return JsonResponse(response, status=200)
+
+# I AM WORKING ON THE QUEY SETS ABOVE; I WANT TO ATTACH A NEW FIELD: OWNED, WICH WOULD TELL IF THE ITEM IS OWNED BY THE USER OR NOT

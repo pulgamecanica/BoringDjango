@@ -9,11 +9,25 @@ class BoringUser(models.Model):
     boring_diamonds = models.IntegerField(default=10)
     bio = models.TextField(blank=True)
     level = models.IntegerField(default=0)
+    def boringUser_wallet_check(self, coins, diamons):
+        if self.boring_coins < coins:
+            return False
+        if self.boring_diamonds < diamons:
+            return False
+        return True
+    def boring_transaction(self, item):
+        if self.boringUser_wallet_check(item.price_coins, item.price_diamonds) and item not in self.item_set.all():
+            self.boring_coins -= item.price_coins
+            self.boring_diamonds -= item.price_diamonds
+            self.item_set.add(item)
+            self.save()
+            return True
+        return False
     def __str__(self):
         return f"Name: {self.user.username}, Coins: {self.boring_coins} | {self.boring_diamonds}"
 
 class Game(models.Model):
-    class GameCategory(models.TextChoices):
+    class GameCategory(models.IntegerChoices):
         USELESS = 0
         CREATIVE = 1
         BORING = 2
@@ -57,8 +71,15 @@ class Comment(models.Model):
     likes = models.IntegerField(default=0)
 
 class Item(models.Model):
-    user = ManyToManyField(BoringUser)
+    class ItemType(models.TextChoices):
+        COMMON = 'Common'
+        RARE = 'Rare'
+        BORING = 'Boring'
+        LEGENDARY = "Legendary"
+    user = ManyToManyField(BoringUser, blank=True)
     price_coins = models.IntegerField()
     price_diamonds = models.IntegerField(blank=True, default=0)
     name = models.CharField(max_length=50, default="Boring Item")
     description = models.TextField(max_length = 150)
+    type = models.CharField(max_length=9,choices=ItemType.choices, default=ItemType.COMMON)
+    

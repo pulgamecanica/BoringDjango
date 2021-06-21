@@ -13,6 +13,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
         arrow.style.display = 'none'
         document.querySelector('#content-selected').appendChild(back);   
     }
+    if(!(document.querySelector('#notice') === null )) {
+        setTimeout(() => {
+            document.querySelector('#notice').animate([
+                { transform: 'translateY(0px)' },
+                { transform: 'translateY(-300px)' }
+            ], {
+                duration: 5000
+            });   
+        }, 5000);
+        setTimeout(() => {
+            document.querySelector('#notice').style.display = "none";
+        }, 10000);
+    }
     document.querySelectorAll('input').forEach(input => {
         input.classList.add('form-control');
         input.style.marginBottom = "1rem";
@@ -40,7 +53,9 @@ function newPost() {
     showElement('post-form');
 }
 function openShop() {
-    openWindow("Shop!");
+    openWindow("Boring Shop!<hr>");
+    showElement('shop');
+
 }
 function openSettings() {
     openWindow("Settings");
@@ -65,4 +80,77 @@ function openWindow(content) {
 function showElement(name) {
     document.querySelectorAll('.form').forEach(form => form.style.display = 'none');
     document.querySelector('#'+name).style.display = 'block';
+}
+function filterItemType(type) {
+    $.ajax({
+        type: "GET",
+        data: $(this).serialize(),
+        url: 'filter_items/'+type,
+        success: function (response) {
+            document.querySelector('#shop-items-container').innerHTML = "";
+            JSON.parse(response.items).forEach(item => {
+                let container = document.querySelector('#shop-items-container');
+                let card = document.createElement('div');
+                card.classList.add('card');
+                card.classList.add('shop-card');
+                card.classList.add('mb-3');
+                let card_body = document.createElement('div');
+                card_body.classList.add('col');
+                card_body.classList.add('card-body');
+                let item_name = document.createElement('h5');
+                item_name.classList.add('card-title');
+                item_name.innerHTML = item.fields.name;
+                let item_type = document.createElement('h6');
+                item_type.classList.add('card-subtitle');
+                item_type.classList.add('mb-2');
+                item_type.classList.add('text-muted');
+                item_type.innerHTML = item.fields.type;
+                let description = document.createElement('p');
+                description.classList.add('card-text');
+                description.innerHTML = item.fields.description;
+                card_body.appendChild(item_name);
+                card_body.appendChild(item_type);
+                card_body.appendChild(document.createElement('hr'));
+                card_body.appendChild(description);
+                card.appendChild(card_body);
+                container.appendChild(card);
+            })
+        },
+        error: function (response) {
+            console.log(response.responseJSON.errors)
+        }
+    });
+}
+let array;
+function placeItems(items) {
+  
+    // array = items;
+    // console.log(items);
+    // let container = document.querySelector('#shop-items-container').innerHTML = "";
+    // items.forEach(item => {
+    //     let card = document.createElement('div');
+    //     card.classList.add('card');
+    //     card.classList.add('shop-card');
+    //     card.classList.add('mb-3');
+    //     let card_body = document.createElement('div');
+    //     card_body.classList.add('col');
+    //     card_body.classList.add('card-body');
+    //     let item_name = document.createElement('h5');
+    //     item_name.classList.add('card-title');
+    //     item_name.innerHTML = item.fields.name;
+    //     let item_type = document.createElement('h6');
+    //     item_type.classList.add('card-subtitle');
+    //     item_type.classList.add('mb-2');
+    //     item_type.classList.add('text-muted');
+    //     item_type.innerHTML = item.fields.type;
+    //     let description = document.createElement('p');
+    //     description.classList.add('card-text');
+    //     description.innerHTML = item.fields.description;
+    //     card_body.appendChild(item_name);
+    //     card_body.appendChild(item_type);
+    //     card_body.appendChild(document.createElement('hr'));
+    //     card_body.appendChild(description);
+    //     card.appendChild(card_body);
+    //     container.appendChild(card);
+    // })
 }

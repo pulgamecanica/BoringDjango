@@ -1,7 +1,7 @@
 {% extends 'boring_website/base.html' %}
 {% block main %}
     <h1 class="posts_title">Posts</h1>
-	<div class="posts_wrapper">
+	<div class="posts_wrapper" id="posts-active">
 		<span id="imageWindowDisplayer"></span>
 		{% for post in posts %}
 			<figure>

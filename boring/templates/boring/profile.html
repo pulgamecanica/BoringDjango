@@ -75,6 +75,35 @@
                            <p> Sorry you don't have any items...</p>
                         {% endfor %}
                      </span>
+                     <span class="form" id="shop">
+                        <div class="shop-top">
+                           <ul>
+                              <li class="active"><i onclick=filterItemType("none") class="fas fa-store-alt"></i></li>
+                              <li><i onclick=filterItemType("Common")>Common</i></li>
+                              <li><i onclick=filterItemType("Rare")>Rare</i></li>
+                              <li><i onclick=filterItemType("Boring")>Boring</i></li>
+                              <li><i onclick=filterItemType("Legendary")>Legendary</i></li>
+                           </ul>
+                        </div>
+                        <div class="shop_content flex row justify-content-around pt-4" id="shop-items-container">
+                           {% for item in shop  %}
+                              <div class="card shop-card mb-3">
+                                 <div class="col card-body">
+                                    <h5 class="card-title">{{ item.name }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ item.type }}</h6>
+                                    <hr>
+                                    <p class="card-text">{{ item.description }}</p>
+                                    {% if item not in user.boringuser.item_set.all %}
+                                       <a href="{% url 'boring:boring_transaction' item.id %}" class="card-link btn btn-success"><h6 class="card-text"><i class="fas fa-coins"></i> {{ item.price_coins }} <i class="far fa-gem"></i> {{ item.price_diamonds }}</h6></a>
+                                    {% else %}
+                                       <a href="{% url 'boring:boring_transaction' item.id %}" class="card-link btn btn-danger disabled"><h6 class="card-text">Owned!</h6></a>
+                                    {% endif %}
+                                 </div>
+                              </div>
+                           {% endfor %}
+                        </div>
+                        <span class="footer"></span>
+                     </span>
                   </div>
                </div>
             </div>

@@ -1,7 +1,7 @@
 {% extends 'boring_website/base.html' %}
 {% block main %}
     {% if not message == "" %}
-        <h1 id="notice">{{ message }}</h1>
+        <h1 class="text-danger" id="notice">{{ message }}</h1>
     {% endif %}
     <h1 id="login-signup"> Login / SignUp</h1>
 	<div class="login-signup-container">

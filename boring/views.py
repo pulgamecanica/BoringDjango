@@ -186,9 +186,7 @@ def boring_transaction(request, item_id):
 @login_required(login_url='./login')
 def filter_items(request, item_type):
     if item_type.capitalize() in [type[0] for type in Item.ItemType.choices]:
-        response = {'items': serialize('json', Item.objects.filter(type=item_type))}
+        response = {'items': serialize('json', Item.objects.filter(type=item_type)), 'owned': {item.id: item in request.user.boringuser.item_set.all() for item in Item.objects.filter(type=item_type)}}
     else:
-        response = {'items': serialize('json', Item.objects.all())}
+        response = {'items': serialize('json', Item.objects.all()), 'owned': {item.id: item in request.user.boringuser.item_set.all() for item in Item.objects.all()}}
     return JsonResponse(response, status=200)
-
-# I AM WORKING ON THE QUEY SETS ABOVE; I WANT TO ATTACH A NEW FIELD: OWNED, WICH WOULD TELL IF THE ITEM IS OWNED BY THE USER OR NOT

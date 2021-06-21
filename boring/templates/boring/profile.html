@@ -77,12 +77,12 @@
                      </span>
                      <span class="form" id="shop">
                         <div class="shop-top">
-                           <ul>
-                              <li class="active"><i onclick=filterItemType("none") class="fas fa-store-alt"></i></li>
-                              <li><i onclick=filterItemType("Common")>Common</i></li>
-                              <li><i onclick=filterItemType("Rare")>Rare</i></li>
-                              <li><i onclick=filterItemType("Boring")>Boring</i></li>
-                              <li><i onclick=filterItemType("Legendary")>Legendary</i></li>
+                           <ul id="shop-nav">
+                              <li id="shop-nav-type-none" class="active"><i onclick=filterItemType("none") class="fas fa-store-alt"></i></li>
+                              <li id="shop-nav-type-Common"><i onclick=filterItemType("Common")>Common</i></li>
+                              <li id="shop-nav-type-Rare"><i onclick=filterItemType("Rare")>Rare</i></li>
+                              <li id="shop-nav-type-Boring"><i onclick=filterItemType("Boring")>Boring</i></li>
+                              <li id="shop-nav-type-Legendary"><i onclick=filterItemType("Legendary")>Legendary</i></li>
                            </ul>
                         </div>
                         <div class="shop_content flex row justify-content-around pt-4" id="shop-items-container">

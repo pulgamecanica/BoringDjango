@@ -81,11 +81,11 @@ function showElement(name) {
     document.querySelectorAll('.form').forEach(form => form.style.display = 'none');
     document.querySelector('#'+name).style.display = 'block';
 }
-function filterItemType(type) {
+function filterItemType(url_type) {
     $.ajax({
         type: "GET",
-        data: $(this).serialize(),
-        url: 'filter_items/'+type,
+        // url: 'filter_items'+'/'+type,
+        url: url_type,
         success: function (response) {
             document.querySelector('#shop-items-container').innerHTML = "";
             JSON.parse(response.items).forEach(item => {
@@ -143,7 +143,7 @@ function filterItemType(type) {
             for(let type of document.querySelector('#shop-nav').children){
                 type.classList.remove('active')
             }
-            document.querySelector('#shop-nav-type-'+type).classList.add('active');
+            document.querySelector('#shop-nav-type-'+url_type.split("/")[url_type.split("/").length-1]).classList.add('active');
         },
         error: function (response) {
             console.log(response.responseJSON.errors)

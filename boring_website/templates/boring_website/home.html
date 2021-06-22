@@ -242,14 +242,13 @@
     </div>
     <div class="box contact-box">
         <div class="wrapper">
-        <form method="GET" name="ContactRequest">
-            <div class="page-title">Contact</div>
-            <div>Fill this to contact us..</div>
-            <input type="text" class="name formEntry" placeholder="Name" />
-            <input type="text" class="email formEntry" placeholder="Email"/>
-            <textarea class="message formEntry" placeholder="Message"></textarea>
-            <button class="submit formEntry" onclick="thanks()">Submit</button>
-        </form>
+            <form method="post" action="{% url 'boring_website:contact_message' %}">
+                <div class="page-title">Contact</div>
+                <div>Fill this to contact us..</div>
+                {% csrf_token %}
+                {{ contact_form }}
+                <button class="submit formEntry" onclick="thanks()">Submit</button>
+            </form>
         </div>
     </div>
 </div>

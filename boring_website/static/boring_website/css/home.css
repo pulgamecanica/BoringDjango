@@ -228,16 +228,14 @@
 	border-top: 5px solid #5712c7e6;;
 }
 .contact-box form .page-title {font-size: 150%;color: #560c6b}
-.contact-box form input, form .message {
-	max-width: 30px;
-	background-color: #ebebeb;
-  	padding: 0.8rem;
-}
+.contact-box form input, form .message {background-color: #ebebeb;}
 .contact-box form input:hover, .login-signup-container form button:hover, .login-signup-container form input:hover, .contact-box form .message:hover{
 	border-bottom: 5px solid #5712c7e6;
 	transform: scale(1.1);
 	transition: ease 0.5s;
 }
+.contact-box .wrapper form {padding: 3rem;}
+
 .contact-box form .message {overflow: hidden;height: 5rem;}
 .contact-box form .formEntry, .mailbox-box .container-contact form .formEntry  {
 	display: block;

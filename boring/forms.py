@@ -1,6 +1,7 @@
 from django import forms
 from django.forms.widgets import PasswordInput
 from .models import *
+
 class GameForm(forms.Form):
     name = forms.CharField(required=False, label='Game name', max_length=30)
     description = forms.CharField(widget=forms.Textarea, required=False, label='Game Description', max_length=150)

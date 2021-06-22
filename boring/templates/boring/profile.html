@@ -74,7 +74,8 @@
                               <div class="col">
                                  <div class="card">
                                     <div class="card-body">
-                                       <h5 class="card-title">{{ item.name }}</h5>
+                                       <h6 class="card-header">{{ item.type }}</h6>
+                                       <h4 class="card-title mt-1">{{ item.name }}</h4>
                                        <p class="card-text">{{ item.description }}</p>
                                        <a href={% url 'boring:boring_return_transaction' item.id %} class="btn btn-warning">Return</a>
                                     </div>

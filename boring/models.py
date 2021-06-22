@@ -53,6 +53,7 @@ class Game(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     category = models.IntegerField(choices=GameCategory.choices, default=False)
     user = models.ForeignKey(BoringUser, on_delete=models.CASCADE, related_name="games")
+    times_played = models.IntegerField(default = 0)
     def getCat(self):
         return self.GameCategory.choices[self.category]
     def __str__(self):
@@ -75,6 +76,8 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     description = models.TextField(max_length = 250)
     likes = models.IntegerField(default=0)
+    def __str__(self):
+        return f'{self.user.user.username}, Description: {self.description}.'
 
 class Item(models.Model):
     class ItemType(models.TextChoices):
@@ -88,4 +91,6 @@ class Item(models.Model):
     name = models.CharField(max_length=50, default="Boring Item")
     description = models.TextField(max_length = 150)
     type = models.CharField(max_length=9,choices=ItemType.choices, default=ItemType.COMMON)
+    def __str__(self):
+        return f'{self.name}, Description: {self.description}, price: {self.price_coins} coins | {self.price_diamonds} diamonds.'
     

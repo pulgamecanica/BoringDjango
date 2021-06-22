@@ -41,6 +41,9 @@ body {
 .topnav-centered a img {transition: transform 1.0s;}
 .topnav-right { float: right;}
 .topnav .topnav-right #darkMode {color: dimgray;}
+#boring-main-container {
+	min-height: 800px;
+}
 .footer {
 	background-color: rgb(255, 197, 185);
 	background-image: url(../images/logo100px.png);

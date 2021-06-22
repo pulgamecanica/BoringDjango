@@ -184,6 +184,15 @@ def boring_transaction(request, item_id):
         return profile_page_view(request, message="Sorry, something went wrong! :/....")
 
 @login_required(login_url='./login')
+def boring_return_transaction(request, item_id):
+    item = Item.objects.get(pk=item_id)
+    if request.user.boringuser.boring_return_transaction(item):
+        return profile_page_view(request, message=f"Item: {item.name}, Sold!! :D.")
+    else:
+        return profile_page_view(request, message="Sorry, something went wrong! :/....")
+
+
+@login_required(login_url='./login')
 def filter_items(request, item_type):
     if item_type.capitalize() in [type[0] for type in Item.ItemType.choices]:
         response = {'items': serialize('json', Item.objects.filter(type=item_type)), 'owned': {item.id: item in request.user.boringuser.item_set.all() for item in Item.objects.filter(type=item_type)}}

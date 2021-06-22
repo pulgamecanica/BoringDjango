@@ -23,6 +23,15 @@ class BoringUser(models.Model):
             self.save()
             return True
         return False
+    def boring_return_transaction(self, item):
+        if item in self.item_set.all():
+            self.item_set.remove(item)
+            if item not in self.item_set.all():
+                self.boring_coins += item.price_coins
+                self.boring_diamonds += item.price_diamonds
+                self.save()
+                return True
+        return False
     def __str__(self):
         return f"Name: {self.user.username}, Coins: {self.boring_coins} | {self.boring_diamonds}"
 
@@ -36,17 +45,14 @@ class Game(models.Model):
     description = models.CharField(max_length = 150)
     iconClass1 = models.CharField(max_length = 5, blank=True, default='')
     iconClass2 = models.CharField(max_length = 15, blank=True, default='')
-    function = models.CharField(max_length = 100, default='')
+    function = models.CharField(max_length = 50, default='')
+    hint_text = models.CharField(max_length = 200, blank=True, default='')
     points_per_win = models.IntegerField(default = 10)
     likes = models.IntegerField(default = 0)
     active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     category = models.IntegerField(choices=GameCategory.choices, default=False)
     user = models.ForeignKey(BoringUser, on_delete=models.CASCADE, related_name="games")
-    #a
-    #gameObj.GameCategory.choices
-    #[('1', 'Useless'), ('2', 'Creative'), ('3', 'Boring'), ('4', 'Frustration')] 
-    # Guide
     def getCat(self):
         return self.GameCategory.choices[self.category]
     def __str__(self):

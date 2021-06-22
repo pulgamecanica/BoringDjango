@@ -69,11 +69,21 @@
                         </form>
                      </span>
                      <span class="form" id="items-collection">
-                        {% for item in user.boringuser.item_set.all %}
-                           <p>{{item.name}}</p>
-                        {% empty %}
-                           <p> Sorry you don't have any items...</p>
-                        {% endfor %}
+                        <div class="row d-flex justify-content-around">
+                           {% for item in user.boringuser.item_set.all %}
+                              <div class="col">
+                                 <div class="card">
+                                    <div class="card-body">
+                                       <h5 class="card-title">{{ item.name }}</h5>
+                                       <p class="card-text">{{ item.description }}</p>
+                                       <a href={% url 'boring:boring_return_transaction' item.id %} class="btn btn-warning">Return</a>
+                                    </div>
+                                 </div>
+                              </div>
+                           {% empty %}
+                              <p> Sorry you don't have any items...</p>
+                           {% endfor %}
+                        </div>
                      </span>
                      <span class="form" id="shop">
                         <div class="shop-top">

@@ -9,6 +9,7 @@ class BoringUser(models.Model):
     boring_diamonds = models.IntegerField(default=10)
     bio = models.TextField(blank=True)
     level = models.IntegerField(default=0)
+    is_admin = models.BooleanField(default=False)
     def boringUser_wallet_check(self, coins, diamons):
         if self.boring_coins < coins:
             return False

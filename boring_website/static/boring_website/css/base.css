@@ -1,5 +1,13 @@
-html {scroll-behavior: smooth;}
+* {
+	scroll-behavior: smooth;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+html {width: 100%;}
+
 body {
+	width: 100%;
 	margin: 0;
 	background: linear-gradient(-45deg, #17eb76, #0be683, #4fe3b9, #8cd5ff, #d380ff, #f7a3f6);
 	background-size: 400% 400%;
@@ -42,7 +50,8 @@ body {
 .topnav-right { float: right;}
 .topnav .topnav-right #darkMode {color: dimgray;}
 #boring-main-container {
-	min-height: 800px;
+	width: 100%;
+	min-height: 100vh;
 }
 .footer {
 	background-color: rgb(255, 197, 185);

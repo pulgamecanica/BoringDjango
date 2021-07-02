@@ -33,8 +33,8 @@ def posts_page_view(request):
 
 def contact_message(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            contact = ContactBox(name = form.cleaned_data['name'], email = form.cleaned_data['email'], description=form.cleaned_data['message'])
+        contact_form = ContactForm(request.POST)
+        if contact_form.is_valid():
+            contact = ContactBox(name=contact_form.cleaned_data['name'], sur_name=contact_form.cleaned_data['sur_name'], email=contact_form.cleaned_data['email'], description=contact_form.cleaned_data['message'], phone_number=contact_form.cleaned_data['phone_number'], date_of_birth=contact_form.cleaned_data['date_of_birth'])
             contact.save()
     return home_page_view(request)

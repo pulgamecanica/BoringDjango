@@ -1,177 +1,203 @@
 {% extends 'boring_website/base.html' %}
 {% block main %}
-<div class="main-wrapper" id="home-active">  
-    <div class="box intro-box">
-        <h6 class="breadcrums">Home / </h6>
-        <h1 class="title">THE VERY, VERY BORING WEBSITE</h1>
-        <h6><i class="fas fa-certificate"></i><b> BoringUser99</b> (Updated on Oct 18, 2022)</h6>
-        <p>Welcome neophyte, this website will bring you many boring experiences and quickly you will feel very bored.<br>We developed many boring games, we can assure that anyone that plays our games will get bored!<br>Create an account to track your progress and comment.<br>Be sure to come back anytime.</p>
-    </div>
-    <div class="box content-wrapper">
-        <div class="box contents-box">
-            <div class="contents-container">
-                <h2><b>Boring Content</b></h2>
-                <a onclick="collapse('boring-posts')" href="#boring-posts-anchor"><i class="fas fa-flag"></i> Boring Posts</a>
-                {% for cat in games_by_cat.keys %}
-                    <a onclick="collapse('{{ cat }}-games')" href="#{{ cat }}-games-anchor"><i class="fas fa-flag"></i> {{ cat }} Games</a>
-                {% endfor %}
-                <a href="#comments-anchor"><i class="fas fa-flag"></i> Comments</a>
-            </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+    {% load static %}
+    <script src={% static 'boring_website/js/home.js' %}></script>
+    <div class="main-wrapper" id="home-active">  
+        <div class="box intro-box">
+            <h6 class="breadcrums">Home / </h6>
+            <h1 class="title">THE VERY, VERY BORING WEBSITE</h1>
+            <h6><i class="fas fa-certificate"></i><b> BoringUser99</b> (Updated on Oct 18, 2022)</h6>
+            <p>Welcome neophyte, this website will bring you many boring experiences and quickly you will feel very bored.<br>We developed many boring games, we can assure that anyone that plays our games will get bored!<br>Create an account to track your progress and comment.<br>Be sure to come back anytime.</p>
         </div>
-        <div class="box donation-box">
-            <h2>Too Bored to Donate?</h2>
-            <p>Do you find this website very boring?<br>Support the programmer if you want...</p>
-            <h1><a href="https://streamlabs.com/pulgamecanica/tip"><i class="fab fa-cc-paypal"></i></a></h1>
-            <hr>
-        </div>
-        <div class="box boring-posts-box" id="boring-posts-anchor">
-		  	<button onclick="collapse('boring-posts')" type="button" class="collapsible collapsible-boring-posts"><i class="fas fa-caret-right"></i> Boring Posts</button>
-		  	<div class="collapsible-content">
-		  		<div class="card">
-                  <div class="card-body">
-                    <a href="{% url 'boring_website:posts' %}">
-                    {% for post in posts %}
-                        <div class="card-title">{{ post.title }}<h6 class="d-inline">{{ post.created_at.day }}/{{ post.created_at.month }}/{{ post.created_at.year }}</h6></div>
-                        <div class="card-text"> <h5>{{ post.description }}</h5></div>
-                        <hr>
+        <div class="box content-wrapper">
+            <div class="box contents-box">
+                <div class="contents-container">
+                    <h2><b>Boring Content</b></h2>
+                    <a onclick="collapse('boring-posts')" href="#boring-posts-anchor"><i class="fas fa-flag"></i> Boring Posts</a>
+                    {% for cat in games_by_cat.keys %}
+                        <a onclick="collapse('{{ cat }}-games')" href="#{{ cat }}-games-anchor"><i class="fas fa-flag"></i> {{ cat }} Games</a>
                     {% endfor %}
-                    </a>
-                  </div>
+                    <a href="#comments-anchor"><i class="fas fa-flag"></i> Comments</a>
                 </div>
-		  	</div>
-        </div>
-        {% for cat, games in games_by_cat.items %}
-            <div class="box {{ cat }}-games-box" id="{{ cat }}-games-anchor">
-                <button onclick="collapse('{{ cat }}-games')" type="button" class="collapsible  collapsible-{{ cat }}-games"><i class="fas fa-caret-right"></i> {{ cat }} Games</button>
+            </div>
+            <div class="box donation-box">
+                <h2>Too Bored to Donate?</h2>
+                <p>Do you find this website very boring?<br>Support the programmer if you want...</p>
+                <h1><a href="https://streamlabs.com/pulgamecanica/tip"><i class="fab fa-cc-paypal"></i></a></h1>
+                <hr>
+            </div>
+            <div class="box boring-posts-box" id="boring-posts-anchor">
+                <button onclick="collapse('boring-posts')" type="button" class="collapsible collapsible-boring-posts"><i class="fas fa-caret-right"></i> Boring Posts</button>
                 <div class="collapsible-content">
                     <div class="card">
-                        <div class="card-body">
-                            <a href="{% url 'boring_website:games' %}">
-                                {% for game in games %}
-                                    <div class="card-title">{{ game.name }}</div>
-                                    <div class="card-text"> 
-                                        <h5>{{ game.description }}</h5>
-                                        <hr>
-                                        <h6> <i class="far fa-thumbs-up"></i> {{ game.likes }} | <i class="fas fa-coins"></i>{{ game.points_per_win }}</h6>
-                                    </div>
-                                {% empty %}
-                                    There are no {{ cat }} games.... 
-                                {% endfor %}
-                            </a>
-                        </div>
+                    <div class="card-body">
+                        <a href="{% url 'boring_website:posts' %}">
+                        {% for post in posts %}
+                            <div class="card-title">{{ post.title }}<h6 class="d-inline">{{ post.created_at.day }}/{{ post.created_at.month }}/{{ post.created_at.year }}</h6></div>
+                            <div class="card-text"> <h5>{{ post.description }}</h5></div>
+                            <hr>
+                        {% endfor %}
+                        </a>
                     </div>
-                </div>	  	
+                    </div>
+                </div>
             </div>
-        {% endfor %}
-    </div>
-    <div class="box author-box">
-        <h1><a href="#"><i class="fab fa-github"></i></a></h1>
-        <span><h5>Boring Info!<h5><p>If you want to check other boring projects like this one, you can visit my boring GitHub profile, where you can find some boring repositories.</p></span>
-	</div>
-    <div class="box author-box-reduced">
-        <h2><a href="#"><i class="fab fa-github"></i>GitHub</a></h2>
-    </div>
-    <div class="box compilation-box">
-        <div class="compilation-container">    
-            <h2>Most Popular</h2>
-            {% if post is not None %}
-                <a href="{% url 'boring_website:posts' %}">
-                    <section class="compilation-post">
-                        <svg>
-                            <rect>
-                                <animate id="o1" begin="0;o1.end" dur="2s"attributeName="visibility" from="hide" to="hide"/>
-                            </rect>
-                            <circle fill="orange" cx="-50" cy="60" r="20">
-                                <animate begin="o1.begin" attributeName="cx" from="220" to="50" dur="1s"/>
-                            </circle>
-                            <defs>
-                                <filter id="filter" x="0" y="0"><feGaussianBlur stdDeviation=".4"/></filter>
-                            </defs>
-                            <circle cx="160" cy="90" r="18" fill="#4747d1" /><circle cx="80" cy="60" r="15" fill="#4747d1" /><circle cx="120" cy="70" r="40" fill="#4747d1" /><circle cx="80" cy="80" r="25" fill="#4747d1" /><circle cx="155" cy="70" r="15" fill="#4747d1" /><circle fill="orange" cx="-50" cy="60" r="20"><animate begin="o1.begin+5s" attributeName="cx" from="50" to="220" dur="1s"/></circle>
-                        </svg>
-                        <h1 class="link-icon"><i class="fas fa-link"></i></h1>
-                        <header>Post<span class="element-date">{{ post.created_at.day }}/{{ post.created_at.month }}/{{ post.created_at.year }}</span></header>
-                        <h2>{{ post.title }}</h2>
-                        {% load static %}
-                        <img src="{% static 'boring_website/images/doggoPost.png' %}" alt="dog beagle">
-                        <content>
-                            {{ post.description }}
-                        </content>
-                        <footer> {{ post.user.user.username }} </footer>
-                    </section>
-                </a>
-            {% endif %}
-            {% if game is not None %}
-                <section class="compilation-game">
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
+            {% for cat, games in games_by_cat.items %}
+                <div class="box {{ cat }}-games-box" id="{{ cat }}-games-anchor">
+                    <button onclick="collapse('{{ cat }}-games')" type="button" class="collapsible  collapsible-{{ cat }}-games"><i class="fas fa-caret-right"></i> {{ cat }} Games</button>
+                    <div class="collapsible-content">
+                        <div class="card">
+                            <div class="card-body">
                                 <a href="{% url 'boring_website:games' %}">
-                                    <h1 class="link-icon"><i class="fas fa-link"></i></h1>
-                                    <header>Useless<span class="element-date">{{ game.created_at.month }}/{{ game.created_at.year }}</span></header>
-                                    <h2>{{ game.name }}</h2>
-                                    <i class="fas fa-user-ninja game-logo"></i>
-                                    <content>
-                                        {{ game.description }}
-                                    </content>
-                                    <footer>{{ game.user.user.username}} <i class="fas fa-thumbs-up"></i> {{ game.likes }}</footer>
+                                    {% for game in games %}
+                                        <div class="card-title">{{ game.name }}</div>
+                                        <div class="card-text"> 
+                                            <h5>{{ game.description }}</h5>
+                                            <hr>
+                                            <h6> <i class="far fa-thumbs-up"></i> {{ game.likes }} | <i class="fas fa-coins"></i>{{ game.points_per_win }}</h6>
+                                        </div>
+                                    {% empty %}
+                                        There are no {{ cat }} games.... 
+                                    {% endfor %}
                                 </a>
                             </div>
-                            <div class="flip-card-back">
-                                <article>
-                                    <figure>
-                                        <div id="dj-ninja-game">
-                                            <p id="ninja">{{ game.name }}</p>
-                                            <i onclick="revealNinja()" class="fas fa-user-ninja fa-rotate-90"></i>
-                                        </div>
-                                        <figcaption> {{ game.description }}</figcaption>
-                                        <details>
-                                            <p>{{ game.hint_text }}</p>
-                                            <footer><span class='hint'><button onclick="getHint('dj-ninja-game')"><i class="fas fa-question"></i></button></span><p>Developed by {{ game.user.user.username }}</p></footer>
-                                        </details>
-                                    </figure>
-                                </article>
+                        </div>
+                    </div>	  	
+                </div>
+            {% endfor %}
+        </div>
+        <div class="box author-box">
+            <h1><a href="#"><i class="fab fa-github"></i></a></h1>
+            <span><h5>Boring Info!<h5><p>If you want to check other boring projects like this one, you can visit my boring GitHub profile, where you can find some boring repositories.</p></span>
+        </div>
+        <div class="box author-box-reduced">
+            <h2><a href="#"><i class="fab fa-github"></i>GitHub</a></h2>
+        </div>
+        <div class="box compilation-box">
+            <div class="compilation-container">    
+                <h2>Most Popular</h2>
+                {% if post is not None %}
+                    <a href="{% url 'boring_website:posts' %}">
+                        <section class="compilation-post">
+                            <svg>
+                                <rect>
+                                    <animate id="o1" begin="0;o1.end" dur="2s"attributeName="visibility" from="hide" to="hide"/>
+                                </rect>
+                                <circle fill="orange" cx="-50" cy="60" r="20">
+                                    <animate begin="o1.begin" attributeName="cx" from="220" to="50" dur="1s"/>
+                                </circle>
+                                <defs>
+                                    <filter id="filter" x="0" y="0"><feGaussianBlur stdDeviation=".4"/></filter>
+                                </defs>
+                                <circle cx="160" cy="90" r="18" fill="#4747d1" /><circle cx="80" cy="60" r="15" fill="#4747d1" /><circle cx="120" cy="70" r="40" fill="#4747d1" /><circle cx="80" cy="80" r="25" fill="#4747d1" /><circle cx="155" cy="70" r="15" fill="#4747d1" /><circle fill="orange" cx="-50" cy="60" r="20"><animate begin="o1.begin+5s" attributeName="cx" from="50" to="220" dur="1s"/></circle>
+                            </svg>
+                            <h1 class="link-icon"><i class="fas fa-link"></i></h1>
+                            <header>Post<span class="element-date">{{ post.created_at.day }}/{{ post.created_at.month }}/{{ post.created_at.year }}</span></header>
+                            <h2>{{ post.title }}</h2>
+                            {% load static %}
+                            <img src="{% static 'boring_website/images/doggoPost.png' %}" alt="dog beagle">
+                            <content>
+                                {{ post.description }}
+                            </content>
+                            <footer> {{ post.user.user.username }} </footer>
+                        </section>
+                    </a>
+                {% endif %}
+                {% if game is not None %}
+                    <section class="compilation-game">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <a href="{% url 'boring_website:games' %}">
+                                        <h1 class="link-icon"><i class="fas fa-link"></i></h1>
+                                        <header>Useless<span class="element-date">{{ game.created_at.month }}/{{ game.created_at.year }}</span></header>
+                                        <h2>{{ game.name }}</h2>
+                                        <i class="fas fa-user-ninja game-logo"></i>
+                                        <content>
+                                            {{ game.description }}
+                                        </content>
+                                        <footer>{{ game.user.user.username}} <i class="fas fa-thumbs-up"></i> {{ game.likes }}</footer>
+                                    </a>
+                                </div>
+                                <div class="flip-card-back">
+                                    <article>
+                                        <figure>
+                                            <div id="dj-ninja-game">
+                                                <p id="ninja">{{ game.name }}</p>
+                                                <i onclick="revealNinja()" class="fas fa-user-ninja fa-rotate-90"></i>
+                                            </div>
+                                            <figcaption> {{ game.description }}</figcaption>
+                                            <details>
+                                                <p>{{ game.hint_text }}</p>
+                                                <footer><span class='hint'><button onclick="getHint('dj-ninja-game')"><i class="fas fa-question"></i></button></span><p>Developed by {{ game.user.user.username }}</p></footer>
+                                            </details>
+                                        </figure>
+                                    </article>
+                                </div>
                             </div>
                         </div>
+                    </section>
+                {% endif %}
+            </div>
+        </div>
+        <div class="box comments-box" id="comments-anchor">
+            <div class="comment-wrapper">
+                <h2><label for="comment">Comments</label></h2>
+                <form>
+                    <div class="comment-container">
+                        <div class="input-group">
+                            <span class="input-group-text user-icon"><i class="far fa-user-circle"></i></span>
+                            <input class="form-control" type="text" name="comment" id="comment" placeholder="Add a public comment...">
+                        </div>
                     </div>
-                </section>
-            {% endif %}
-        </div>
-    </div>
-    <div class="box comments-box" id="comments-anchor">
-        <div class="comment-wrapper">
-            <h2><label for="comment">Comments</label></h2>
-            <form>
-                <div class="comment-container">
-                    <div class="input-group">
-                        <span class="input-group-text user-icon"><i class="far fa-user-circle"></i></span>
-                        <input type="text" name="comment" id="comment" placeholder="Add a public comment...">
+                </form>
+                <hr>
+                {% for comment in comments %}
+                    <div class="comments-container">
+                        <div class="user-comment-icon"><i class="far fa-user-circle"></i></div>
+                        <p>You should try DJ. Ninja, took me a while to find out it's not actually useless...</p>
+                        <h6>{{ comment.user.user.username }} on {{ comment.created_at|date:'Y-m-d' }} <a href=""><i class="fas fa-reply"></i></a> <a href=""><i class="fas fa-share-alt"></i></a><a href=""><i class="far fa-heart"></i></a></h6>
                     </div>
-                </div>
-            </form>
-            <hr>
-            {% for comment in comments %}
-                <div class="comments-container">
-                    <div class="user-comment-icon"><i class="far fa-user-circle"></i></div>
-                    <p>You should try DJ. Ninja, took me a while to find out it's not actually useless...</p>
-                    <h6>{{ comment.user.user.username }} on {{ comment.created_at|date:'Y-m-d' }} <a href=""><i class="fas fa-reply"></i></a> <a href=""><i class="fas fa-share-alt"></i></a><a href=""><i class="far fa-heart"></i></a></h6>
-                </div>
-            {% empty %}
-                No comments... Be the first one to comment.
-            {% endfor %}
-            <p style="color: #3c5fd2;">show more comments</p>
+                {% empty %}
+                    No comments... Be the first one to comment.
+                {% endfor %}
+                <p style="color: #3c5fd2;">show more comments</p>
+            </div>
+        </div>
+        <div class="box contact-box">
+            <div class="wrapper">
+                <form method="post" action="{% url 'boring_website:contact_message' %}">
+                    <div class="page-title">Contact</div>
+                    <p>Fill this to contact us..</p>
+                    {% csrf_token %}
+                    {% for field in contact_form  %}
+                        {% if field is contact_form.date_of_birth %}
+                            {{ field.errors }}
+                            <div class="input-group mb-4" id="datetimepicker1" data-target-input="nearest">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                <div data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                    <div class="input-group-text m-1"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="fieldWrapper">
+                                {{ field.errors }}
+                                {{ field.label_tag }} {{ field }}
+                                {% if field.help_text %}
+                                    <p class="help">{{ field.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <button class="submit formEntry">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
-    <div class="box contact-box">
-        <div class="wrapper">
-            <form method="post" action="{% url 'boring_website:contact_message' %}">
-                <div class="page-title">Contact</div>
-                <div>Fill this to contact us..</div>
-                {% csrf_token %}
-                {{ contact_form }}
-                <button class="submit formEntry" onclick="thanks()">Submit</button>
-            </form>
-        </div>
-    </div>
-</div>
 {% endblock %}

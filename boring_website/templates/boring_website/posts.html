@@ -1,5 +1,7 @@
 {% extends 'boring_website/base.html' %}
 {% block main %}
+	{% load static %}
+	<script src={% static 'boring_website/js/posts.js' %}></script>
     <h1 class="posts_title">Posts</h1>
 	<div class="posts_wrapper" id="posts-active">
 		<span id="imageWindowDisplayer"></span>

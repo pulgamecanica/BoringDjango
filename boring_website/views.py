@@ -9,10 +9,12 @@ from .forms import ContactForm
 # Create your views here.
 def home_page_view(request):
     contact_form = ContactForm()
-    recent_posts = [post for index, post in enumerate(Post.objects.all().filter(active=True)) if index < 2]
+    recent_posts = [post for post in Post.objects.all().filter(active=True).order_by('created_at')[:2] ]
+    recent_games_by_cat = { choice[1]: Game.objects.filter(category=choice[0]).filter(active=True).order_by('created_at')[:2] for choice in Game.GameCategory.choices }
     game = None if len(Game.objects.all()) == 0 else Game.objects.all().order_by('likes')[0]
     post = None if len(Post.objects.all()) == 0 else Post.objects.all().order_by('likes')[0]
-    context = {'contact_form': contact_form, 'post': post, 'game': game, 'posts': recent_posts, 'uselessGames': Game.objects.all().filter(category=0)[:2], 'creativeGames': Game.objects.all().filter(category=1)[:2], 'boringGames': Game.objects.all().filter(category=2)[:2], 'frustrationGames': Game.objects.all().filter(category=3)[:2]}
+    comments = Comment.objects.order_by('created_at')
+    context = {'contact_form': contact_form, 'post': post, 'game': game, 'posts': recent_posts, 'games_by_cat': recent_games_by_cat, 'comments': comments}
     return render(request, 'boring_website/home.html', context)
 
 def games_page_view(request):

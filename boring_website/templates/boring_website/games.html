@@ -22,7 +22,7 @@
 			<div class="games-options">
 				<div class="games-flex-container">
                     {% for game in games  %}
-                        <a href="#load-game-section" onclick="loadGame('{{ game.function }}')">
+                        <a href="#load-game-section" onclick="loadGame('{{ game.function }}', '{{game.likes}}')">
                             <article>
                                 <i class="{{ game.iconClass1 }} {{ game.iconClass2 }}"></i>
                                 <h6> {{ game.getCat.1 }} </h6>
@@ -32,21 +32,17 @@
                     {% endfor %}
 				</div>
 			</div>
-
 			<main class="game-player-section">
 				<h2>
                     {% if user.is_authenticated %}
-                        <i class="fas fa-user"></i> pulgamecanica
-                        <span class="right"><i class="fas fa-coins"></i> 100 <i class="far fa-gem"></i> 99 </span>
+                        <i class="fas fa-user"></i> {{ request.user.username }}
+                        <span class="right"><i class="fas fa-coins"></i> {{ request.user.boringuser.boring_coins }} <i class="far fa-gem"></i> {{ request.user.boringuser.boring_diamonds }} </span>
                     {% else %}
                         <i class="fas fa-user"></i> anonymous
                         <span class="right"><i class="fas fa-coins"></i> 0 <i class="far fa-gem"></i> 0 </span>
                     {% endif %}
-					
-					
 				</h2>
 				<div id="load-game-section" class="game-play-area">
-					
 					<h1 class="active-game choose-game"> Choose a Boring GAME!</h1>
                     {% for game in games %}
                         <section class="game-box container-of-the-{{ game.function }} hide-game">
@@ -54,22 +50,18 @@
                                 <h2 class="game-title"> {{ game.name }}</h2>
                                 <article>
                                     <figure>
-                                        <div id="{{ game.function }}" class="game-box-border">
-                                            <p> {{ game.name }} </p>
-                                            <h1><i class="fas fa-spinner fa-spin"></i></h1>
+                                        <div id="{{ game.function }}">
+                                            <span id="game-content-load-{{game.function}}">
+                                                <p> {{ game.name }} </p>
+                                                <h1><i class="fas fa-spinner fa-spin"></i></h1>
+                                            </span>
+                                            <div id="game-content-box-{{game.function}}" class = "game-box-border"></div>
                                         </div>
                                         <figcaption>{{ game.name }}</figcaption>
                                         <details>
                                             <summary>{{ game.getCat.1 }}</summary>
-                                            <p> {{ game.description }}
-                                                <span class="loading-dots">
-                                                    <i class="fas fa-circle"></i>
-                                                    <i class="fas fa-circle"></i>
-                                                    <i class="fas fa-circle"></i>
-                                                </span>
-                                            </p>
-                                            <footer><span class='hint'><button onclick="getHint('dj-ninja-game')"><i class="fas fa-question"></i></button></span><p>Developed by {{ game.user.user.username }}</p></footer>
-                                            
+                                            <p> {{ game.description }}</p>
+                                            <footer><span class='hint'><button onclick="getHint('{{game.hint_text}}')"><i class="fas fa-question"></i></button></span><p>Developed by {{ game.user.user.username }}</p></footer>
                                         </details>
                                     </figure>
                                 </article>

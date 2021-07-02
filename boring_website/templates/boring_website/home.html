@@ -5,21 +5,17 @@
         <h6 class="breadcrums">Home / </h6>
         <h1 class="title">THE VERY, VERY BORING WEBSITE</h1>
         <h6><i class="fas fa-certificate"></i><b> BoringUser99</b> (Updated on Oct 18, 2022)</h6>
-        <p>Welcome neophyte, this website will bring you many boring experiences and quickly you will feel very bored.<br>
-        We developed many boring games, we can assure that anyone that plays our games will get bored!<br>
-        Create an account to track your progress and comment.<br>
-        Be sure to come back anytime.</p>
+        <p>Welcome neophyte, this website will bring you many boring experiences and quickly you will feel very bored.<br>We developed many boring games, we can assure that anyone that plays our games will get bored!<br>Create an account to track your progress and comment.<br>Be sure to come back anytime.</p>
     </div>
     <div class="box content-wrapper">
         <div class="box contents-box">
             <div class="contents-container">
                 <h2><b>Boring Content</b></h2>
-                    <a onclick="collapse('boring-posts')" href="#boring-posts-anchor"><i class="fas fa-flag"></i> Boring Posts</a>
-                    <a onclick="collapse('boring-games')" href="#boring-games-anchor"><i class="fas fa-flag"></i> Boring Games</a>
-                    <a onclick="collapse('creative-games')" href="#creative-games-anchor"><i class="fas fa-flag"></i> Creative Games</a>
-                    <a onclick="collapse('useless-box')" href="#useless-anchor"><i class="fas fa-flag"></i> Useless</a></li>
-                    <a onclick="collapse('frustration')" type href="#frustration-anchor"><i class="fas fa-flag"></i> Frustration</a>
-                    <a href="#comments-anchor"><i class="fas fa-flag"></i> Comments</a>
+                <a onclick="collapse('boring-posts')" href="#boring-posts-anchor"><i class="fas fa-flag"></i> Boring Posts</a>
+                {% for cat in games_by_cat.keys %}
+                    <a onclick="collapse('{{ cat }}-games')" href="#{{ cat }}-games-anchor"><i class="fas fa-flag"></i> {{ cat }} Games</a>
+                {% endfor %}
+                <a href="#comments-anchor"><i class="fas fa-flag"></i> Comments</a>
             </div>
         </div>
         <div class="box donation-box">
@@ -44,82 +40,29 @@
                 </div>
 		  	</div>
         </div>
-        <div class="box boring-games-box" id="boring-games-anchor">
-		  	<button onclick="collapse('boring-games')" type="button" class="collapsible collapsible-boring-games"><i class="fas fa-caret-right"></i> Boring Games</button>
-		  	<div class="collapsible-content">
-		  		<div class="card">
-                  <div class="card-body">
-                    <a href="{% url 'boring_website:games' %}">
-                    {% for game in boringGames %}
-                        <div class="card-title">{{ game.name }}</div>
-                        <div class="card-text"> 
-                            <h5>{{ game.description }}</h5>
-                            <hr>
-                            <h6> <i class="far fa-thumbs-up"></i> {{ game.likes }} | <i class="fas fa-coins"></i>{{ game.points_per_win }}</h6>
+        {% for cat, games in games_by_cat.items %}
+            <div class="box {{ cat }}-games-box" id="{{ cat }}-games-anchor">
+                <button onclick="collapse('{{ cat }}-games')" type="button" class="collapsible  collapsible-{{ cat }}-games"><i class="fas fa-caret-right"></i> {{ cat }} Games</button>
+                <div class="collapsible-content">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="{% url 'boring_website:games' %}">
+                                {% for game in games %}
+                                    <div class="card-title">{{ game.name }}</div>
+                                    <div class="card-text"> 
+                                        <h5>{{ game.description }}</h5>
+                                        <hr>
+                                        <h6> <i class="far fa-thumbs-up"></i> {{ game.likes }} | <i class="fas fa-coins"></i>{{ game.points_per_win }}</h6>
+                                    </div>
+                                {% empty %}
+                                    There are no {{ cat }} games.... 
+                                {% endfor %}
+                            </a>
                         </div>
-                    {% endfor %}
-                    </a>
-                  </div>
-                </div>
-		  	</div>	  	
-        </div>
-        <div class="box creative-games-box" id="creative-games-anchor">
-		  	<button onclick="collapse('creative-games')" type="button" class="collapsible collapsible-creative-games"><i class="fas fa-caret-right"></i> Creative Games</button>
-		  	<div class="collapsible-content">
-		  		<div class="card">
-                  <div class="card-body">
-                    <a href="{% url 'boring_website:games' %}">
-                    {% for game in creativeGames %}
-                        <div class="card-title">{{ game.name }}</div>
-                        <div class="card-text"> 
-                            <h5>{{ game.description }}</h5>
-                            <hr>
-                            <h6> <i class="far fa-thumbs-up"></i> {{ game.likes }} | <i class="fas fa-coins"></i>{{ game.points_per_win }}</h6>
-                        </div>
-                    {% endfor %}
-                    </a>
-                  </div>
-                </div>
-		  	</div>
-        </div>
-        <div class="box useless-box" id="useless-anchor">
-		  	<button onclick="collapse('useless-box')" type="button" class="collapsible collapsible-useless-box"><i class="fas fa-caret-right"></i> Useless</button>
-		  	<div class="collapsible-content">
-		  		<div class="card">
-                  <div class="card-body">
-                    <a href="{% url 'boring_website:games' %}">
-                    {% for game in uselessGames %}
-                        <div class="card-title">{{ game.name }}</div>
-                        <div class="card-text"> 
-                            <h5>{{ game.description }}</h5>
-                            <hr>
-                            <h6> <i class="far fa-thumbs-up"></i> {{ game.likes }} | <i class="fas fa-coins"></i>{{ game.points_per_win }}</h6>
-                        </div>
-                    {% endfor %}
-                    </a>
-                  </div>
-                </div>
-		  	</div>
-        </div>
-        <div class="box frustration-box" id="frustration-anchor">
-		  	<button onclick="collapse('frustration')" type="button" class="collapsible collapsible-frustration"><i class="fas fa-caret-right"></i> Frustration</button>
-		  	<div class="collapsible-content">
-		  		<div class="card">
-                  <div class="card-body">
-                    <a href="{% url 'boring_website:games' %}">
-                    {% for game in frustrationGames %}
-                        <div class="card-title">{{ game.name }}</div>
-                        <div class="card-text"> 
-                            <h5>{{ game.description }}</h5>
-                            <hr>
-                            <h6> <i class="far fa-thumbs-up"></i> {{ game.likes }} | <i class="fas fa-coins"></i>{{ game.points_per_win }}</h6>
-                        </div>
-                    {% endfor %}
-                    </a>
-                  </div>
-                </div>
-		  	</div>
-        </div>
+                    </div>
+                </div>	  	
+            </div>
+        {% endfor %}
     </div>
     <div class="box author-box">
         <h1><a href="#"><i class="fab fa-github"></i></a></h1>
@@ -136,27 +79,15 @@
                     <section class="compilation-post">
                         <svg>
                             <rect>
-                                <animate id="o1" begin="0;o1.end" dur="2s"
-                                attributeName="visibility" from="hide" to="hide"/>
+                                <animate id="o1" begin="0;o1.end" dur="2s"attributeName="visibility" from="hide" to="hide"/>
                             </rect>
                             <circle fill="orange" cx="-50" cy="60" r="20">
-                                <animate begin="o1.begin" 
-                                attributeName="cx" from="220" to="50" dur="1s"/>
+                                <animate begin="o1.begin" attributeName="cx" from="220" to="50" dur="1s"/>
                             </circle>
                             <defs>
-                                <filter id="filter" x="0" y="0">
-                                    <feGaussianBlur stdDeviation=".4"/>
-                                </filter>
+                                <filter id="filter" x="0" y="0"><feGaussianBlur stdDeviation=".4"/></filter>
                             </defs>
-                            <circle cx="160" cy="90" r="18" fill="#4747d1" />
-                            <circle cx="80" cy="60" r="15" fill="#4747d1" />
-                            <circle cx="120" cy="70" r="40" fill="#4747d1" />
-                            <circle cx="80" cy="80" r="25" fill="#4747d1" />
-                            <circle cx="155" cy="70" r="15" fill="#4747d1" />
-                            <circle fill="orange" cx="-50" cy="60" r="20">
-                                <animate begin="o1.begin+5s" 
-                                attributeName="cx" from="50" to="220" dur="1s"/>
-                            </circle>
+                            <circle cx="160" cy="90" r="18" fill="#4747d1" /><circle cx="80" cy="60" r="15" fill="#4747d1" /><circle cx="120" cy="70" r="40" fill="#4747d1" /><circle cx="80" cy="80" r="25" fill="#4747d1" /><circle cx="155" cy="70" r="15" fill="#4747d1" /><circle fill="orange" cx="-50" cy="60" r="20"><animate begin="o1.begin+5s" attributeName="cx" from="50" to="220" dur="1s"/></circle>
                         </svg>
                         <h1 class="link-icon"><i class="fas fa-link"></i></h1>
                         <header>Post<span class="element-date">{{ post.created_at.day }}/{{ post.created_at.month }}/{{ post.created_at.year }}</span></header>
@@ -183,22 +114,20 @@
                                     <content>
                                         {{ game.description }}
                                     </content>
-                                    <footer>KillMasterNinja {{ game.likes }}<i class="fas fa-thumbs-up"></i> </footer>
+                                    <footer>{{ game.user.user.username}} <i class="fas fa-thumbs-up"></i> {{ game.likes }}</footer>
                                 </a>
                             </div>
                             <div class="flip-card-back">
                                 <article>
                                     <figure>
-                                    {% comment %} Change ALL ninja ref's {% endcomment %}
                                         <div id="dj-ninja-game">
                                             <p id="ninja">{{ game.name }}</p>
                                             <i onclick="revealNinja()" class="fas fa-user-ninja fa-rotate-90"></i>
                                         </div>
-                                        <figcaption>Can you find DJ. Ninja?</figcaption>
+                                        <figcaption> {{ game.description }}</figcaption>
                                         <details>
-                                            <p>The Ninja is Hidding somewhere....</p>
-                                            <p>You can get a Hint.</p>
-                                            <footer><span class='hint'><button onclick="getHint('dj-ninja-game')"><i class="fas fa-question"></i></button></span><p>Developed by staggeringbeauty.com</p></footer>
+                                            <p>{{ game.hint_text }}</p>
+                                            <footer><span class='hint'><button onclick="getHint('dj-ninja-game')"><i class="fas fa-question"></i></button></span><p>Developed by {{ game.user.user.username }}</p></footer>
                                         </details>
                                     </figure>
                                 </article>
@@ -221,22 +150,15 @@
                 </div>
             </form>
             <hr>
-            <div class="comments-container">
-                <div class="user-comment-icon"><i class="far fa-user-circle"></i></div>
-                <p>This website is sooooo boring! I like it.</p>
-                <h6>pulgamecanica11 on 18/Oct/19 <a href=""><i class="fas fa-reply"></i></a> <a href=""><i class="fas fa-share-alt"></i></a> <a href=""><i class="far fa-heart"></i></a></h6>
-            </div>
-            <div class="comments-container">
-                <div class="user-comment-icon"><i class="far fa-user-circle"></i></div>
-                <p>You should try DJ. Ninja, took me a while to find out it's not actually useless...</p>
-                <h6>Teacher88 on 20/Feb/21 <a href=""><i class="fas fa-reply"></i></a> <a href=""><i class="fas fa-share-alt"></i></a> <a href=""><i class="far fa-heart"></i></a></h6>
-
-            </div>
-            <div class="comments-container">
-                <div class="user-comment-icon"><i class="far fa-user-circle"></i></div>
-                <p>My dog fell asleep while we were watching some of your posts XD</p>
-                <h6>PinkyPencil01 on 05/Oct/21 <a href=""><i class="fas fa-reply"></i></a> <a href=""><i class="fas fa-share-alt"></i></a> <a href=""><i class="far fa-heart"></i></a></h6>
-            </div>
+            {% for comment in comments %}
+                <div class="comments-container">
+                    <div class="user-comment-icon"><i class="far fa-user-circle"></i></div>
+                    <p>You should try DJ. Ninja, took me a while to find out it's not actually useless...</p>
+                    <h6>{{ comment.user.user.username }} on {{ comment.created_at|date:'Y-m-d' }} <a href=""><i class="fas fa-reply"></i></a> <a href=""><i class="fas fa-share-alt"></i></a><a href=""><i class="far fa-heart"></i></a></h6>
+                </div>
+            {% empty %}
+                No comments... Be the first one to comment.
+            {% endfor %}
             <p style="color: #3c5fd2;">show more comments</p>
         </div>
     </div>

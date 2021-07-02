@@ -86,59 +86,63 @@ function filterItemType(url_type) {
         type: "GET",
         url: url_type,
         success: function (response) {
-            document.querySelector('#shop-items-container').innerHTML = "";
-            JSON.parse(response.items).forEach(item => {
-                let container = document.querySelector('#shop-items-container');
-                let card = document.createElement('div');
-                card.classList.add('card');
-                card.classList.add('shop-card');
-                card.classList.add('mb-3');
-                let card_body = document.createElement('div');
-                card_body.classList.add('col');
-                card_body.classList.add('card-body');
-                let item_name = document.createElement('h5');
-                item_name.classList.add('card-title');
-                item_name.innerHTML = item.fields.name;
-                let item_type = document.createElement('h6');
-                item_type.classList.add('card-subtitle');
-                item_type.classList.add('mb-2');
-                item_type.classList.add('text-muted');
-                item_type.innerHTML = item.fields.type;
-                let description = document.createElement('p');
-                description.classList.add('card-text');
-                description.innerHTML = item.fields.description;
-                let button = document.createElement('a');
-                let button_text = document.createElement('h6');
-                button_text.classList.add('card-text');
-                button.classList.add('card-link');
-                button.classList.add('btn');
-                if (response.owned[item.pk]) {
-                    button.classList.add('btn-danger');
-                    button.classList.add('disabled');
-                    button_text.innerHTML += 'Owned!'
-                }else {
-                    let coins = document.createElement('i');
-                    coins.classList.add('fas');
-                    coins.classList.add('fa-coins');
-                    let diamonds = document.createElement('i');
-                    diamonds.classList.add('far');
-                    diamonds.classList.add('fa-gem');
-                    button_text.appendChild(coins);
-                    button_text.innerHTML += item.fields.price_coins
-                    button_text.appendChild(diamonds);
-                    button_text.innerHTML += item.fields.price_diamonds
-                    button.classList.add('btn-success');
-                }
-                button.appendChild(button_text);
-                button.href = "boring_transaction/" + item.pk;
-                card_body.appendChild(item_name);
-                card_body.appendChild(item_type);
-                card_body.appendChild(document.createElement('hr'));
-                card_body.appendChild(description);
-                card_body.appendChild(button);
-                card.appendChild(card_body);
-                container.appendChild(card);
-            });
+            if (JSON.parse(response.items).length != 0) {
+                document.querySelector('#shop-items-container').innerHTML = "";
+                JSON.parse(response.items).forEach(item => {
+                    let container = document.querySelector('#shop-items-container');
+                    let card = document.createElement('div');
+                    card.classList.add('card');
+                    card.classList.add('shop-card');
+                    card.classList.add('mb-3');
+                    let card_body = document.createElement('div');
+                    card_body.classList.add('col');
+                    card_body.classList.add('card-body');
+                    let item_name = document.createElement('h5');
+                    item_name.classList.add('card-title');
+                    item_name.innerHTML = item.fields.name;
+                    let item_type = document.createElement('h6');
+                    item_type.classList.add('card-subtitle');
+                    item_type.classList.add('mb-2');
+                    item_type.classList.add('text-muted');
+                    item_type.innerHTML = item.fields.type;
+                    let description = document.createElement('p');
+                    description.classList.add('card-text');
+                    description.innerHTML = item.fields.description;
+                    let button = document.createElement('a');
+                    let button_text = document.createElement('h6');
+                    button_text.classList.add('card-text');
+                    button.classList.add('card-link');
+                    button.classList.add('btn');
+                    if (response.owned[item.pk]) {
+                        button.classList.add('btn-danger');
+                        button.classList.add('disabled');
+                        button_text.innerHTML += 'Owned!'
+                    }else {
+                        let coins = document.createElement('i');
+                        coins.classList.add('fas');
+                        coins.classList.add('fa-coins');
+                        let diamonds = document.createElement('i');
+                        diamonds.classList.add('far');
+                        diamonds.classList.add('fa-gem');
+                        button_text.appendChild(coins);
+                        button_text.innerHTML += item.fields.price_coins
+                        button_text.appendChild(diamonds);
+                        button_text.innerHTML += item.fields.price_diamonds
+                        button.classList.add('btn-success');
+                    }
+                    button.appendChild(button_text);
+                    button.href = "boring_transaction/" + item.pk;
+                    card_body.appendChild(item_name);
+                    card_body.appendChild(item_type);
+                    card_body.appendChild(document.createElement('hr'));
+                    card_body.appendChild(description);
+                    card_body.appendChild(button);
+                    card.appendChild(card_body);
+                    container.appendChild(card);
+                });
+            } else {
+                document.querySelector('#shop-items-container').innerHTML = 'There are no ' + url_type.split("/")[url_type.split("/").length-1] + " items :( ..."
+            }
             for(let type of document.querySelector('#shop-nav').children){
                 type.classList.remove('active')
             }

@@ -11,19 +11,23 @@ class GameForm(forms.Form):
     points_per_win = forms.IntegerField(required=False, label="Point per Win")
     active = forms.BooleanField(required=False)
     category = forms.ChoiceField(label="Category", choices=Game.GameCategory.choices, required=False)
+    
 class PostForm(forms.Form):
     title = forms.CharField(required=False, label='Post title', max_length=30)
     description = forms.CharField(widget=forms.Textarea, required=False, label='Post Description', max_length=150)
     short_description = forms.CharField(required=False, label='Post Short Description', max_length=15)
     active = forms.BooleanField(required=False)
+
 class LoginForm(forms.Form):
     username = forms.CharField(label="Username")
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
+    
 class RegisterForm(forms.Form):
     username = forms.CharField(label="Username")
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
     password_confirmation = forms.CharField(widget=forms.PasswordInput, label="Password Confirmation")
     bio = forms.CharField(widget=forms.Textarea, label="Bio", min_length=20)
+
 class SettingsForm(forms.Form):
     username = forms.CharField(required=False, label="Username")
     old_password = forms.CharField(required=False, widget=forms.PasswordInput, label="Old Password")

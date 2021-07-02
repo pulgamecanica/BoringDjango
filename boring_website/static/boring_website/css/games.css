@@ -5,7 +5,7 @@
 	border-radius: 1em;
 	position: relative;
 }
-.games-container h1 {
+.games-container > h1 {
 	color: #3c5fd2;
 	display: inline;
 	font-size: 250%;
@@ -19,13 +19,10 @@
 	float: right;
 	padding-left: 0.5rem;
 	padding-right: 0.5rem;
-	margin-right: 1rem;
 	cursor: pointer;
-	border-top-width: 3px;
-	border-top-style: solid;
-	border-top-color: rgba(0, 0, 0, 0);
+	border-top: 3px rgba(0, 0, 0, 0) solid;
 }
-.games-container .dropdown .last-game-link {transform: translate(-30%, 0);}
+.games-container .dropdown .last-game-link {transform: translate(-50%, 0);}
 .games-container .dropdown .dropdown-content {
 	display: none;
 	position: absolute;
@@ -44,40 +41,8 @@
 .games-container .dropdown:hover .dropdown-content {display: block;color: rgba(87, 18, 199, 0.90);}
 .games-container .dropdown:hover {color: #3c5fd2;border-top-color: rgb(87, 18, 199);}
 .games-grid {display: grid;grid-template-columns: [games-options] 40% [game-player-section] 60%;}
-.games-grid .games-options {grid-column: 1 / 2;grid-row: 1;}
+.games-grid .games-options {grid-column: 1 / 2; grid-row: 1;}
 .games-grid .game-player-section {grid-column: 2 / 3;grid-row: 1;}
-/* For Fixed Possition, make button latter with JS
-.games-grid .game-player-section .game-player {
-	right: 10%;
-	margin: 2rem auto;
-	padding: 1rem;
-	background-color: green;
-	position: fixed;
-
-}*/
-.games-grid .game-player-section h2 {padding: 1rem;color: rgba(87, 18, 199, 0.90);}
-.games-grid .game-player-section h2 .fa-gem {color: red;}
-.games-grid .game-player-section h2 .fa-coins {color: gold;}
-.games-grid .game-player-section .right {color: black;float: right;}
-.games-grid .game-player-section .game-play-area {
-	min-height: 350px;
-	background-color: rgba(0 ,0, 0, 0.1);
-	border-radius: 1em;
-	display: flex;
-	flex-flow: row wrap;
-	align-content: stretch;
-	align-items: baseline;
-}
-.games-grid .game-player-section .game-play-area .game-box {
-	text-align: center;
-	margin: auto;
-	max-width: 90%;
-}
-.games-grid .game-player-section .game-play-area .leaderboard {
-	text-align: center;
-	min-width: 20%;
-	margin: auto;
-}
 .games-container .games-flex-container {
 	margin-top: 5rem;
 	display: flex;
@@ -85,34 +50,25 @@
 	justify-content: center;
 	align-items: stretch;
 }
-.games-container .games-flex-container a {
+.games-container .games-flex-container > a {
 	background-color: #ffeea6;
-	margin: 0.5rem;
-	width: 100px;
+	margin: 0.45rem;
+	width: 150px;
 	text-align: center;
 	padding: 1rem;
 	border-radius: 1em;
 	border-width: 2px;
 	border-style: solid;
 	border-color: rgba(0, 0 ,0 ,0);
-	position: relative;
 	text-decoration: none;
-	color: #3c5fd2;
+	color: #5712c7e6;
     overflow: hidden;
+	position: relative;
 }
-.games-container .games-flex-container a:hover {
-	opacity: 0.8;
-	border-color: rgb(87, 18, 199);
-	text-decoration: underline;
-}
-.games-container .games-flex-container a article img {width: 100px;height: auto;}
+.games-container .games-flex-container a:hover {opacity: 0.8;border-color: rgb(87, 18, 199);}
 .games-container .games-flex-container a article i {font-size: 400%;}
 .games-container .games-flex-container a article .fa-trophy {color: gold;}
-.games-container .games-flex-container a article .fa-paint-roller {
-	background: -webkit-linear-gradient(blue, red, green);
-	-webkit-background-clip: text;
-  	-webkit-text-fill-color: transparent;
-}
+.games-container .games-flex-container a article .fa-paint-roller {background: -webkit-linear-gradient(blue, red, green);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
 .games-container .games-flex-container a article .fa-question {color: pink;}
 .games-container .games-flex-container a article .fa-stopwatch {color: red;animation: clock-time-up 10s infinite ease-out;}
 .games-container .games-flex-container a article .fa-cloud-rain {color: lightblue;}
@@ -120,14 +76,30 @@
 .games-container .games-flex-container a article .fa-spinner {color: gray;}
 .games-container .games-flex-container a article .fa-user-ninja {color: black;}
 .games-container .games-flex-container a article .fa-puzzle-piece {color: purple;}
-.games-container .games-flex-container a article p {margin-top: 1rem;border-top: 1px gray solid;}
+.games-container .games-flex-container a article p {border-top: 1px gray solid;}
 .games-container .games-flex-container a article h6 {
 	position: absolute;
 	bottom: 0;
-    right: 0;
+	right: 0;
     font-size: 80%;
 	color: gray;
 }
+.games-grid .game-player-section > h2 {padding: 1rem;color: rgba(87, 18, 199, 0.90);}
+.games-grid .game-player-section > h2 .fa-gem {color: red;}
+.games-grid .game-player-section > h2 .fa-coins {color: gold;}
+.games-grid .game-player-section .right {color: black;float: right;}
+.games-grid .game-player-section > .game-play-area {
+	min-height: 90%;
+	background-color: rgba(0 ,0, 0, 0.1);
+	border-radius: 1em;
+	text-align: center;
+	padding: 2rem;
+}
+/* .games-grid .game-player-section .game-play-area .leaderboard {
+	text-align: center;
+	min-width: 20%;
+	margin: auto;
+} */
 .game-play-area .game-box .game-container article figure .game-box-border {
 	border-radius: 1em;
 	padding: 0.5rem;

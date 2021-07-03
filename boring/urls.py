@@ -22,4 +22,11 @@ urlpatterns = [
     path('boring_transaction/<int:item_id>', views.boring_transaction, name="boring_transaction"),
     path('boring_return_transaction/<int:item_id>', views.boring_return_transaction, name="boring_return_transaction"),
     path('filter_items/<slug:item_type>', views.filter_items, name="filter_items"),
+    path('boring_admin', views.boring_admin, name="boring_admin"),
+    path('delete_contact_box/<int:contact_box_id>', views.delete_contact_box, name="delete_contact_box" ),
+    path('create_question', views.create_question, name="create_question"),
+    path('create_answer/<int:question_id>', views.create_answer, name="create_answer"),
+    path('delete_question/<int:question_id>', views.delete_question, name="delete_question" ),
+    path('delete_answer/<int:answer_id>', views.delete_answer, name="delete_answer" ),
+
 ]

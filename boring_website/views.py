@@ -24,8 +24,8 @@ def games_page_view(request):
 def faq_page_view(request):
     return render(request, 'boring_website/faq.html')
 
-def about_page_view(request):
-    return render(request, 'boring_website/about.html')
+def quizz_page_view(request):
+    return render(request, 'boring_website/quizz.html')
 
 def posts_page_view(request):
     context = {'posts': Post.objects.all().filter(active=True)}
@@ -35,6 +35,8 @@ def contact_message(request):
     if request.method == 'POST':
         contact_form = ContactForm(request.POST)
         if contact_form.is_valid():
-            contact = ContactBox(name=contact_form.cleaned_data['name'], sur_name=contact_form.cleaned_data['sur_name'], email=contact_form.cleaned_data['email'], description=contact_form.cleaned_data['message'], phone_number=contact_form.cleaned_data['phone_number'], date_of_birth=contact_form.cleaned_data['date_of_birth'])
+            contact = ContactBox(name=contact_form.cleaned_data['name'], sur_name=contact_form.cleaned_data['sur_name'], email=contact_form.cleaned_data['email'], description=contact_form.cleaned_data['message'], phone_number=contact_form.cleaned_data['phone_number'])
+            contact.save()
+            contact.date_of_birth = contact_form.cleaned_data['date_of_birth']
             contact.save()
     return home_page_view(request)

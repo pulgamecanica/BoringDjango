@@ -6,12 +6,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, logout, login
 from django.http import HttpResponse, request
 from django.contrib.auth.models import User
+from boring_website.models import ContactBox, Review, Question, Answer
 from .models import Game, Post, BoringUser, Item
-from .forms import GameForm, PostForm, LoginForm, RegisterForm, SettingsForm
+from .forms import GameForm, PostForm, LoginForm, RegisterForm, SettingsForm, QuestionForm, AnswerForm
 
 @login_required(login_url='./login')
 def profile_page_view(request, message=""):
-    return render(request, 'boring/profile.html', {'message': message, 'post_form': PostForm(), 'game_form': GameForm(), 'settings_form': SettingsForm(), 'shop': Item.objects.all()})
+    return render(request, 'boring/profile.html', {'message': message, 'post_form': PostForm(), 'game_form': GameForm(), 'settings_form': SettingsForm(), 'shop': Item.objects.all(), 'categories': [category[0] for category in Item.ItemType.choices]})
 
 def login_page_view(request, message=""):
     if request.user.is_authenticated:
@@ -191,11 +192,59 @@ def boring_return_transaction(request, item_id):
     else:
         return profile_page_view(request, message="Sorry, something went wrong! :/....")
 
-
 @login_required(login_url='./login')
 def filter_items(request, item_type):
     if item_type.capitalize() in [type[0] for type in Item.ItemType.choices]:
-        response = {'items': serialize('json', Item.objects.filter(type=item_type)), 'owned': {item.id: item in request.user.boringuser.item_set.all() for item in Item.objects.filter(type=item_type)}}
+        response = {'items': serialize('json', Item.objects.filter(type=item_type))}
     else:
-        response = {'items': serialize('json', Item.objects.all()), 'owned': {item.id: item in request.user.boringuser.item_set.all() for item in Item.objects.all()}}
+        response = {'items': serialize('json', Item.objects.all())}
     return JsonResponse(response, status=200)
+
+@login_required(login_url='./login')
+def boring_admin(request):
+    if not request.user.boringuser.is_admin:
+        return profile_page_view(request, "Sorry, you are not an Admin")
+    return render(request, 'boring/boring_admin.html', {'contact_boxes': ContactBox.objects.all() ,'reviews': Review.objects.all(), 'questions': Question.objects.all() ,'question_form': QuestionForm(), 'answer_form': AnswerForm()})
+
+@login_required(login_url='./login')
+def delete_contact_box(request, contact_box_id):
+    if not request.user.boringuser.is_admin:
+        return profile_page_view(request, "Sorry, you are not an Admin")
+    ContactBox.objects.get(pk=contact_box_id).delete()
+    return boring_admin(request)
+
+@login_required(login_url='./login')
+def create_question(request):
+    if not request.user.boringuser.is_admin:
+        return profile_page_view(request, "Sorry, you are not an Admin")
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = Question(question=form.cleaned_data['question'], points=form.cleaned_data['points'])
+            question.save()
+    return boring_admin(request)
+
+@login_required(login_url='./login')
+def create_answer(request, question_id):
+    if not request.user.boringuser.is_admin:
+        return profile_page_view(request, "Sorry, you are not an Admin")
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            question = Question.objects.get(pk=question_id)
+            answer = Answer(description=form.cleaned_data['description'], is_correct=form.cleaned_data['is_correct'], question=question)
+            answer.save()
+    return boring_admin(request)
+@login_required(login_url='./login')
+def delete_question(request, question_id):
+    if not request.user.boringuser.is_admin:
+        return profile_page_view(request, "Sorry, you are not an Admin")
+    Question.objects.get(pk=question_id).delete()
+    return boring_admin(request)
+
+@login_required(login_url='./login')
+def delete_answer(request, answer_id):
+    if not request.user.boringuser.is_admin:
+        return profile_page_view(request, "Sorry, you are not an Admin")
+    Answer.objects.get(pk=answer_id).delete()
+    return boring_admin(request)

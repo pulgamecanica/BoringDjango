@@ -1,0 +1,99 @@
+{% extends 'boring_website/base.html' %}
+{% block main %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'boring/css/boring_admin.css' %}">
+    <script src={% static 'boring/js/admin.js' %}></script>
+    <div class="container mt-5">
+        <div class="jumbotron">
+            <h1 class="display-4 text-center">Welcome {{ user }}</h1>
+            <p class="lead">Here you can manage Contact Boxes from random people and Reviews, you can create graphs and share them and also you can create items. You can also manage questions for the website quizz.</p>
+            <hr class="my-4">
+            <p class="lead">
+                <div class="d-flex justify-content-around">
+                    <button class="btn btn-primary btn-lg" onclick="showAdminPannel('review-section')" role="button">Reviews</button>
+                    <button class="btn btn-primary btn-lg" onclick="showAdminPannel('contact-boxes-section')" role="button">Contact Boxes</button>
+                    <button class="btn btn-primary btn-lg" onclick="showAdminPannel('quizz-section')" role="button">Quizz</button>
+                </div>
+            </p>
+        </div>
+    </div>
+    <div class="container mb-4">
+        <div id="admin-sections-container" class="d-flex justify-content-center text-center">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body p-1">
+                        <h5 class="card-title">Admin Page</h5>
+                        <div class="jumbotron jumbotron-fluid">
+                            <div class="container">
+                                <h5>Choose an option to display the admin pannel.</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="contact-boxes-section" class="col admin-section">
+                <div class="card">
+                    <div class="card-body p-1">
+                        <h5 class="card-title">Contact Boxes</h5>
+                        {% for contact_box in contact_boxes  %}
+                            <div class="jumbotron jumbotron-fluid p-0">
+                                <h5 class="p-4">Phone Number: {{ contact_box.phone_number }}, created at: {{ contact_box.created_at.day }}/{{ contact_box.created_at.month }}/{{ contact_box.created_at.year }}</h5>
+                                <p class="lead">{{ contact_box }}</p>
+                                <a href="{% url 'boring:delete_contact_box' contact_box.id %}" class="btn btn-danger d-block" onclick="return confirm('Please, confirm action:\nDelete {{contact_box.name}} contact Box.')">Destroy</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div id="review-section" class="col admin-section">
+                <div class="card">
+                    <div class="card-body p-1">
+                        <h1 class="card-title">Reviews</h1>
+                        {% for review in reviews  %}
+                            <div class="jumbotron jumbotron-fluid p-0">
+                                <ul class="list-group">
+                                    <h3 class="head p-3">#{{ forloop.counter }}</h3>
+                                    {% for review_element in review.reviewelement_set.all  %}
+                                        <li class="list-group-item"><p class="lead">{{ review_element }}</p></li>
+                                    {% endfor %}
+                                </ul>
+                                <a href="#" class="btn btn-danger d-block">Destroy</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div id="quizz-section" class="col admin-section">
+                <div class="card">
+                    <div class="card-body p-1">
+                        <h5 class="card-title">Quizz</h5>
+                        {% for question in questions  %}
+                            <div class="jumbotron jumbotron-fluid p-2">
+                                <h5 class="d-flex justify-content-around "> 
+                                    {{question}}
+                                    <a href="{% url 'boring:delete_question' question.id %}" class="btn btn-info" onclick="return confirm('Please, confirm action:\nDelete {{question}}.')"><i class="fas fa-trash-alt text-danger p-2"></i></a>
+                                </h5>
+                                <ul class="list-group">
+                                    {% for answer in question.answer_set.all  %}
+                                        <li class="list-group-item">{{answer}}<a href="{% url 'boring:delete_answer' answer.id %}" class="btn btn-dark" onclick="return confirm('Please, confirm action:\nDelete {{answer}}.')"><i class="fas fa-trash-alt text-danger"></i></a></li>
+                                    {% endfor %}
+                                </ul>
+                                <form action="{% url 'boring:create_answer' question.id %}" method="post" class="pt-2">
+                                    {% csrf_token %}
+                                    {{ answer_form }}
+                                    <span class="d-flex justify-content-center"><input class="btn btn-primary mt-3" type="submit" value="New Answer"></span>
+                                </form>
+                            </div>
+                        {% endfor %}
+                        <p class="card-text">New Question</p>
+                        <form action="{% url 'boring:create_question' %}" method="post">
+                            {% csrf_token %}
+                            {{ question_form }}
+                            <span class="d-flex justify-content-center"><input class="btn btn-primary mt-3 pl-4 pr-4" type="submit" value="Create Question"></span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

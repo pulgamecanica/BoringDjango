@@ -1,0 +1,24 @@
+.admin-section {
+    text-align: center;
+    display: none;
+}
+input {
+    max-width: 400px;
+    margin: auto;
+}
+.jumbotron {
+    background-color: transparent;
+}
+.card {
+    /* background-color: rgba(0, 0, 0, 0.1); */
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+}
+.list-group-item {
+    background-color: transparent;
+    border-left: none;
+    border-right: none;
+}
+.jumbotron-fluid {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}

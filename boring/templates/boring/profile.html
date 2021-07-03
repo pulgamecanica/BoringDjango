@@ -92,12 +92,11 @@
                      </span>
                      <span class="form" id="shop">
                         <div class="shop-top">
-                           <ul id="shop-nav">
+                           <ul id="shop-nav"  data-user-id={{ user.id }} >
                               <li id="shop-nav-type-none" class="active"><i onclick=filterItemType("{% url 'boring:filter_items' 'none'%}") class="fas fa-store-alt"></i></li>
-                              <li id="shop-nav-type-Common"><i onclick=filterItemType("{% url 'boring:filter_items' 'Common'%}")>Common</i></li>
-                              <li id="shop-nav-type-Rare"><i onclick=filterItemType("{% url 'boring:filter_items' 'Rare'%}")>Rare</i></li>
-                              <li id="shop-nav-type-Boring"><i onclick=filterItemType("{% url 'boring:filter_items' 'Boring'%}")>Boring</i></li>
-                              <li id="shop-nav-type-Legendary"><i onclick=filterItemType("{% url 'boring:filter_items' 'Legendary'%}")>Legendary</i></li>
+                              {% for category in categories %}
+                                 <li class="category-filter" id="shop-nav-type-{{ category }}"><i onclick=filterItemType("{% url 'boring:filter_items' category %}")>{{ category }}</i></li>
+                              {% endfor %}
                            </ul>
                         </div>
                         <div class="shop_content flex row justify-content-around pt-4" id="shop-items-container">

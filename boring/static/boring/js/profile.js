@@ -47,45 +47,45 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function newGame() {
     openWindow("New Game!");
     showElement('game-form');
-}
+};
 function newPost() {
     openWindow("New Post!");
     showElement('post-form');
-}
+};
 function openShop() {
     openWindow("Boring Shop!<hr>");
     showElement('shop');
-
-}
+};
 function openSettings() {
     openWindow("Settings");
     showElement('settings-form');
 
-}
+};
 function showItems() {
     openWindow("Your Items!");
     showElement("items-collection");
-}
+};
 function goBack(params) {
     document.querySelector('#content-selected-header').innerHTML = "";
     document.querySelector('#content-selected').style.display = "none";
     document.querySelector('#profile-menu').style.display = "block";
-}
+};
 function openWindow(content) {
     document.querySelector('#profile-menu').style.display = "none";
     document.querySelector('#content-selected').style.display = "block";
     document.querySelector('#content-selected-header').innerHTML = content;
     document.querySelector('#arrow-back').style.display = 'block';
-}
+};
 function showElement(name) {
     document.querySelectorAll('.form').forEach(form => form.style.display = 'none');
     document.querySelector('#'+name).style.display = 'block';
-}
+};
 function filterItemType(url_type) {
     $.ajax({
         type: "GET",
         url: url_type,
         success: function (response) {
+            let logged_user_id = document.querySelector('#shop-nav').dataset.userId;
             if (JSON.parse(response.items).length != 0) {
                 document.querySelector('#shop-items-container').innerHTML = "";
                 JSON.parse(response.items).forEach(item => {
@@ -113,7 +113,12 @@ function filterItemType(url_type) {
                     button_text.classList.add('card-text');
                     button.classList.add('card-link');
                     button.classList.add('btn');
-                    if (response.owned[item.pk]) {
+                    let owns_item = false;
+                    item.fields.user.forEach(user_id => {
+                        if (user_id == logged_user_id )
+                            owns_item = true;
+                    })
+                    if (owns_item) {
                         button.classList.add('btn-danger');
                         button.classList.add('disabled');
                         button_text.innerHTML += 'Owned!'
@@ -152,4 +157,4 @@ function filterItemType(url_type) {
             console.log(response.responseJSON.errors)
         }
     });
-}
+};

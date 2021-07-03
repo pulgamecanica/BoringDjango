@@ -17,7 +17,6 @@
 	<link rel="stylesheet" href="{% static 'boring/css/login.css' %}">
 	<script src="https://kit.fontawesome.com/72e594ef21.js" crossorigin="anonymous"></script>
     <script src={% static 'boring_website/js/base.js' %}></script>
-
 </head>
 <body>
     <nav id="navBar">
@@ -26,7 +25,7 @@
 				<a href="{% url 'boring_website:home' %}"><img src="{% static 'boring_website/images/logo100px.png' %}" alt="logo"></a>
 			</div>
 			<a href="{% url 'boring_website:home' %}" class="active">Home</a>
-			<a href="{% url 'boring_website:about' %}">About</a>
+			<a href="{% url 'boring_website:quizz' %}">Quizz</a>
 			<a href="{% url 'boring_website:games' %}">Games</a>
 			<a href="{% url 'boring_website:posts' %}">Posts</a>
 			<a href="{% url 'boring_website:faq' %}">FAQ</a>
@@ -40,6 +39,11 @@
 			</div>
 		</div>
 	</nav>
+	{% if user.is_authenticated %}
+		{% if user.boringuser.is_admin %}
+			<a href="{% url 'boring:boring_admin' %}" id="admin_user"><i class="fas fa-users-cog display-3 text-secondary bg-dark p-2"></i></a>
+		{% endif %}
+	{% endif %}
 	<div id="boring-main-container">
 		{% block main %}
     	{% endblock %}
@@ -49,7 +53,7 @@
 			<span class="quicks">
 				<a href="{% url 'boring_website:faq' %}">FAQ</a>
 				<a href="./news">NEWS</a>
-				<a href="{% url 'boring_website:about' %}">ABOUT</a>
+				<a href="{% url 'boring_website:quizz' %}">QUIZZ</a>
 				<a href="./website-guide">LAYOUTS</a>
 			</span>
 			<ul class="socials-list">

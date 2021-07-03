@@ -1,6 +1,7 @@
 from django import forms
 from django.forms.widgets import PasswordInput
 from .models import *
+from boring_website.models import Question, Answer
 
 class GameForm(forms.Form):
     name = forms.CharField(required=False, label='Game name', max_length=30)
@@ -34,3 +35,11 @@ class SettingsForm(forms.Form):
     new_password = forms.CharField(required=False, widget=forms.PasswordInput, label="New Password")
     password_confirmation = forms.CharField(required=False, widget=forms.PasswordInput, label="New Password Confirmation")
     bio = forms.CharField(required=False, widget=forms.Textarea, label="Bio", min_length=20)
+
+class QuestionForm(forms.Form):
+    question = forms.CharField(label="Question")
+    points = forms.IntegerField(label="Points")
+
+class AnswerForm(forms.Form):
+    description = forms.CharField(label="Description")
+    is_correct = forms.BooleanField(required=False)

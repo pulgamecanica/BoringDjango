@@ -10,6 +10,7 @@ class BoringUser(models.Model):
     bio = models.TextField(blank=True)
     level = models.IntegerField(default=0)
     is_admin = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now=True)
     def boringUser_wallet_check(self, coins, diamons):
         if self.boring_coins < coins:
             return False
@@ -86,6 +87,7 @@ class Item(models.Model):
         RARE = 'Rare'
         BORING = 'Boring'
         LEGENDARY = "Legendary"
+        COMIC_ITEM = "Comic"
     user = ManyToManyField(BoringUser, blank=True)
     price_coins = models.IntegerField()
     price_diamonds = models.IntegerField(blank=True, default=0)

@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
 from django.http import HttpResponse
 from boring.models import *
-from .models import ContactBox
+from .models import ContactBox, Question, QuizzSubmission
 from .forms import ContactForm
 
 # Create your views here.
@@ -25,7 +25,7 @@ def faq_page_view(request):
     return render(request, 'boring_website/faq.html')
 
 def quizz_page_view(request):
-    return render(request, 'boring_website/quizz.html')
+    return render(request, 'boring_website/quizz.html', {'questions': Question.objects.all()})
 
 def posts_page_view(request):
     context = {'posts': Post.objects.all().filter(active=True)}
@@ -39,4 +39,29 @@ def contact_message(request):
             contact.save()
             contact.date_of_birth = contact_form.cleaned_data['date_of_birth']
             contact.save()
+    return home_page_view(request)
+
+def quizz_submission(request):
+    if request.method == "POST":
+        score = 0.0
+        for question in Question.objects.all():
+            if question.type() == "open_answer":
+                input_answer = request.POST[str(question.pk)]
+                # TO DO question could have an aptional answer
+            elif question.type() == "one_choice":
+                input_answer = request.POST[str(question.pk)]
+                for answer in question.answers.all():
+                    if f'{question.pk}_{answer.pk}' in input_answer and answer.is_correct:
+                        score += answer.answer_points()
+            elif question.type() == "multiple_choice":
+                input_answer = request.POST.getlist(str(question.pk))
+                for answer in question.answers.all():
+                    if f'{question.pk}_{answer.pk}' in input_answer:
+                        if answer.is_correct:
+                            score += answer.answer_points()
+                        else:
+                            score -= answer.answer_points()
+        score = (score*100)/sum(question.points for question in Question.objects.all()) if score >= 0 else 0
+        submission = QuizzSubmission(score=score)
+        submission.save()
     return home_page_view(request)

@@ -9,10 +9,11 @@
             <p class="lead">Here you can manage Contact Boxes from random people and Reviews, you can create graphs and share them and also you can create items. You can also manage questions for the website quizz.</p>
             <hr class="my-4">
             <p class="lead">
-                <div class="d-flex justify-content-around">
-                    <button class="btn btn-primary btn-lg" onclick="showAdminPannel('review-section')" role="button">Reviews</button>
-                    <button class="btn btn-primary btn-lg" onclick="showAdminPannel('contact-boxes-section')" role="button">Contact Boxes</button>
-                    <button class="btn btn-primary btn-lg" onclick="showAdminPannel('quizz-section')" role="button">Quizz</button>
+                <div class="d-flex justify-content-around row">
+                    <button class="btn btn-primary btn-lg mt-4" onclick="showAdminPannel('review-section')" role="button">Reviews</button>
+                    <button class="btn btn-primary btn-lg mt-4" onclick="showAdminPannel('contact-boxes-section')" role="button">Contact Boxes</button>
+                    <button class="btn btn-primary btn-lg mt-4" onclick="showAdminPannel('quizz-section')" role="button">Quizz</button>
+                    <button class="btn btn-primary btn-lg mt-4" onclick="showAdminPannel('quizz-submissions-section')" role="button">Submissions</button>
                 </div>
             </p>
         </div>
@@ -41,6 +42,10 @@
                                 <p class="lead">{{ contact_box }}</p>
                                 <a href="{% url 'boring:delete_contact_box' contact_box.id %}" class="btn btn-danger d-block" onclick="return confirm('Please, confirm action:\nDelete {{contact_box.name}} contact Box.')">Destroy</a>
                             </div>
+                        {% empty %}
+                            <div class="jumbotron jumbotron-fluid p-0">
+                                <h4 class="p-4">No Contact Boxes so Far...</h4>
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
@@ -53,11 +58,15 @@
                             <div class="jumbotron jumbotron-fluid p-0">
                                 <ul class="list-group">
                                     <h3 class="head p-3">#{{ forloop.counter }}</h3>
-                                    {% for review_element in review.reviewelement_set.all  %}
+                                    {% for review_element in review.elements.all  %}
                                         <li class="list-group-item"><p class="lead">{{ review_element }}</p></li>
                                     {% endfor %}
                                 </ul>
                                 <a href="#" class="btn btn-danger d-block">Destroy</a>
+                            </div>
+                        {% empty %}
+                            <div class="jumbotron jumbotron-fluid p-0">
+                                <h4 class="p-4">No Reviews so Far...</h4>
                             </div>
                         {% endfor %}
                     </div>
@@ -70,11 +79,11 @@
                         {% for question in questions  %}
                             <div class="jumbotron jumbotron-fluid p-2">
                                 <h5 class="d-flex justify-content-around "> 
-                                    {{question}}
+                                    <span>{{question}}<br><span>{{question.type}}</h6></span>
                                     <a href="{% url 'boring:delete_question' question.id %}" class="btn btn-info" onclick="return confirm('Please, confirm action:\nDelete {{question}}.')"><i class="fas fa-trash-alt text-danger p-2"></i></a>
                                 </h5>
                                 <ul class="list-group">
-                                    {% for answer in question.answer_set.all  %}
+                                    {% for answer in question.answers.all  %}
                                         <li class="list-group-item">{{answer}}<a href="{% url 'boring:delete_answer' answer.id %}" class="btn btn-dark" onclick="return confirm('Please, confirm action:\nDelete {{answer}}.')"><i class="fas fa-trash-alt text-danger"></i></a></li>
                                     {% endfor %}
                                 </ul>
@@ -84,6 +93,10 @@
                                     <span class="d-flex justify-content-center"><input class="btn btn-primary mt-3" type="submit" value="New Answer"></span>
                                 </form>
                             </div>
+                        {% empty %}
+                            <div class="jumbotron jumbotron-fluid p-0">
+                                <h4 class="p-4">No Questions so Far...</h4>
+                            </div>
                         {% endfor %}
                         <p class="card-text">New Question</p>
                         <form action="{% url 'boring:create_question' %}" method="post">
@@ -91,6 +104,23 @@
                             {{ question_form }}
                             <span class="d-flex justify-content-center"><input class="btn btn-primary mt-3 pl-4 pr-4" type="submit" value="Create Question"></span>
                         </form>
+                    </div>
+                </div>
+            </div>
+            <div id="quizz-submissions-section" class="col admin-section">
+                <div class="card">
+                    <div class="card-body p-1">
+                        <h5 class="card-title">Quizz Submissions</h5>
+                        {% for submission in submissions  %}
+                            <div class="jumbotron jumbotron-fluid p-0">
+                                <h6 class="p-4">Submited on: {{ submission.created_at.day }}/{{ submission.created_at.month }}/{{ submission.created_at.year }}</h6>
+                                <p class="lead">{{ submission.score }}%</p>
+                            </div>
+                        {% empty %}
+                            <div class="jumbotron jumbotron-fluid p-0">
+                                <h4 class="p-4">No Submissions so Far...</h4>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

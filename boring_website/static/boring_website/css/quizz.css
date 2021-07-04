@@ -1,0 +1,25 @@
+.answer {
+    max-width: 600px;
+    margin: auto;
+    border-bottom: 2px gray solid;
+}
+.jumbotron {
+    background-color: transparent;
+}
+.card {
+    /* background-color: rgba(0, 0, 0, 0.1); */
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px gray solid;
+}
+.card:last-child {
+    border-bottom: none;
+}
+.jumbotron-fluid {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+#questions {
+	background-color: #ffeea6;
+    border-radius: 1em;
+}

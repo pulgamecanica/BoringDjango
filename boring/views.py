@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, logout, login
 from django.http import HttpResponse, request
 from django.contrib.auth.models import User
-from boring_website.models import ContactBox, Review, Question, Answer
+from boring_website.models import ContactBox, QuizzSubmission, Review, Question, Answer
 from .models import Game, Post, BoringUser, Item
 from .forms import GameForm, PostForm, LoginForm, RegisterForm, SettingsForm, QuestionForm, AnswerForm
 
@@ -204,7 +204,7 @@ def filter_items(request, item_type):
 def boring_admin(request):
     if not request.user.boringuser.is_admin:
         return profile_page_view(request, "Sorry, you are not an Admin")
-    return render(request, 'boring/boring_admin.html', {'contact_boxes': ContactBox.objects.all() ,'reviews': Review.objects.all(), 'questions': Question.objects.all() ,'question_form': QuestionForm(), 'answer_form': AnswerForm()})
+    return render(request, 'boring/boring_admin.html', {'contact_boxes': ContactBox.objects.all() ,'reviews': Review.objects.all(), 'questions': Question.objects.all() ,'question_form': QuestionForm(), 'answer_form': AnswerForm(), 'submissions': QuizzSubmission.objects.all()})
 
 @login_required(login_url='./login')
 def delete_contact_box(request, contact_box_id):

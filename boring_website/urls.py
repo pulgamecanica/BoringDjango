@@ -11,4 +11,5 @@ urlpatterns = [
     path('quizz', views.quizz_page_view, name='quizz'),
     path('posts', views.posts_page_view, name='posts'),
     path('contact_message', views.contact_message, name='contact_message'),
+    path('quizz_submission', views.quizz_submission, name='quizz_submission'),
 ]

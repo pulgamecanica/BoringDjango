@@ -1,4 +1,41 @@
 {% extends 'boring_website/base.html' %}
 {% block main %}
-    <h1> I am totally redesigning this one!</h1> 
+    {% load static %}
+	<link rel="stylesheet" href="{% static 'boring_website/css/quizz.css' %}">
+    <div class="container mt-4 text-center">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Quizz</h1>
+                <p class="lead">Complete the boring Quizz and win 100 coins.</p>
+                <form action="{% url 'boring_website:quizz_submission' %}" method="post">
+                    {% csrf_token %}
+                    <div id="questions">
+                        {% for question in questions %}
+                            <span class="float-left p-2">{{forloop.counter}}</span>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{question.question}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{question.points}}pts.</h6>
+                                    {% if question.type == "open_answer" %}
+                                        <input type="text" name="{{question.id}}" id="{{question.id}}" class="form-control answer" placeholder="Answer..." required>
+                                    {% else %}
+                                        {% if question.type == "one_choice" %}
+                                            <select id="{{question.id}}" name="{{question.id}}">
+                                        {% elif question.type == "multiple_choice" %}
+                                            <select id="{{question.id}}" name="{{question.id}}" multiple required>
+                                        {% endif %}
+                                            {% for answer in question.answers.all  %}
+                                                <option value="{{question.id}}_{{answer.id}}" class="form-control answer">{{answer.description}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <input class="btn btn-primary mt-3 btn-block" type="submit" value="Send">
+                </form>
+            </div>
+        </div>
+    </div> 
 {% endblock %}

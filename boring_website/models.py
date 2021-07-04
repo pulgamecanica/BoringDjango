@@ -16,19 +16,40 @@ class ContactBox(models.Model):
 class Question(models.Model):
     question = models.CharField(max_length=400)
     points = models.IntegerField(default=10)
+    def type(self):
+        if len(self.answers.all()) == 0:
+            return "open_answer"
+        true_options = 0
+        for answer in self.answers.all():
+            if answer.is_correct:
+                true_options += 1
+        if true_options == 1:
+            return "one_choice"
+        else:
+            return "multiple_choice"
     def __str__(self):
-        return f'Question: {self.question}, {self.points}pts.'
+        return f'{self.question}, {self.points}pts.'
 
 class Answer(models.Model):
     description = models.CharField(max_length=300)
     is_correct = models.BooleanField()
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
+    def answer_points(self):
+        return self.question.points/len(self.question.answers.filter(is_correct=True))
     def __str__(self):
-        return f'Answer: {self.description}, {self.is_correct}.'
+        return f'{self.description}, {self.is_correct}.'
+
+class QuizzSubmission(models.Model):
+    score = models.FloatField(default=0.0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return str(self.score)
 
 class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-
+    def __str__(self):
+        return f'Review - {self.created_at}'
+        
 class ReviewElement(models.Model):
     class ReviewElementOptions(models.TextChoices):
         CLARITY = 'CL' 
@@ -42,7 +63,7 @@ class ReviewElement(models.Model):
     element = models.CharField(max_length=2, choices=ReviewElementOptions.choices, default=ReviewElementOptions.ORIGINALITY)
     grade = models.IntegerField()
     comment = models.CharField(max_length=300, blank=True)
-    review = models.ForeignKey(Review, on_delete=CASCADE)
+    review = models.ForeignKey(Review, on_delete=CASCADE, related_name='elements')
     def __str__(self):
         element_name = ""
         for choice in ReviewElement.ReviewElementOptions.choices:

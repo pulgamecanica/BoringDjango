@@ -12,4 +12,7 @@ urlpatterns = [
     path('posts', views.posts_page_view, name='posts'),
     path('contact_message', views.contact_message, name='contact_message'),
     path('quizz_submission', views.quizz_submission, name='quizz_submission'),
+    path('review', views.review, name='review'),
+    path('send_review', views.send_review, name='send_review'),
+    path('delete_review/<int:review_id>', views.delete_review, name='delete_review'),
 ]

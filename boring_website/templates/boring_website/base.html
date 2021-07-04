@@ -18,7 +18,15 @@
 	<script src="https://kit.fontawesome.com/72e594ef21.js" crossorigin="anonymous"></script>
     <script src={% static 'boring_website/js/base.js' %}></script>
 </head>
-<body>
+<body data-review="{% url 'boring_website:review' %}">
+	<div id="review-container" class="jumbotron fluid-jumbotron">
+        <h2>Time to Review the website<br>We will you offer you 5 free diamonds.</h2>
+		<div class="container pt-4">
+        	<form action="{% url 'boring_website:send_review' %}" method="POST" id="review-inputs">
+            	{% csrf_token %}
+        	</form>
+		</div>
+    </div>
     <nav id="navBar">
 		<div class="topnav">
 			<div class="topnav-centered">

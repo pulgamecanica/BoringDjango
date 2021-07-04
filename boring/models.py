@@ -3,6 +3,21 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.fields.related import ManyToManyField
 
+FUNCTIONS = [
+    ('loveTheLogo', 'Love The Logo'),
+    ('colorGame', 'colorGame'),
+    ('seconds_game', 'Seconds Game'),
+    ('no_you_cant_win', 'No you cant win.'),
+    ('boring_switch', 'Boring Switch'),
+    ('rgba_game', 'RGBA Game'),
+    ('ninja', 'Ninja'),
+    ('mysterious_messages', 'Mysterious Messages'),
+    ('logo_click', 'Logo Click'),
+    ('mysterious_emoji', 'Mysterious Emoji'),
+    ('boring_rain', 'Boring Rain'),
+    ('game_loading', 'Game Loading')
+]
+
 class BoringUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     boring_coins = models.IntegerField(default=100)
@@ -11,6 +26,23 @@ class BoringUser(models.Model):
     level = models.IntegerField(default=0)
     is_admin = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
+    def buy_game(self):
+        if self.boringUser_wallet_check(1000, 10):
+            self.boring_coins -= 1000
+            self.boring_diamonds -= 10
+            self.save()
+            return True
+        else:
+            return False
+
+    def buy_post(self):
+        if self.boringUser_wallet_check(500, 0):
+            self.boring_coins -= 500
+            self.save()
+            return True
+        else:
+            return False
+
     def boringUser_wallet_check(self, coins, diamons):
         if self.boring_coins < coins:
             return False
@@ -47,7 +79,7 @@ class Game(models.Model):
     description = models.CharField(max_length = 150)
     iconClass1 = models.CharField(max_length = 5, blank=True, default='')
     iconClass2 = models.CharField(max_length = 15, blank=True, default='')
-    function = models.CharField(max_length = 50, default='')
+    function = models.CharField(max_length = 50, choices=FUNCTIONS)
     hint_text = models.CharField(max_length = 200, blank=True, default='')
     points_per_win = models.IntegerField(default = 10)
     likes = models.IntegerField(default = 0)

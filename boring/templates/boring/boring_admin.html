@@ -62,7 +62,7 @@
                                         <li class="list-group-item"><p class="lead">{{ review_element }}</p></li>
                                     {% endfor %}
                                 </ul>
-                                <a href="#" class="btn btn-danger d-block">Destroy</a>
+                                <a href="{% url 'boring_website:delete_review' review.id %}" class="btn btn-danger d-block" onclick="return confirm('Please, confirm action:\nDelete {{review}}.')">Destroy</a>
                             </div>
                         {% empty %}
                             <div class="jumbotron jumbotron-fluid p-0">
@@ -79,7 +79,7 @@
                         {% for question in questions  %}
                             <div class="jumbotron jumbotron-fluid p-2">
                                 <h5 class="d-flex justify-content-around "> 
-                                    <span>{{question}}<br><span>{{question.type}}</h6></span>
+                                    <span>{{question}}<br><h6>{{question.type}}</h6></span>
                                     <a href="{% url 'boring:delete_question' question.id %}" class="btn btn-info" onclick="return confirm('Please, confirm action:\nDelete {{question}}.')"><i class="fas fa-trash-alt text-danger p-2"></i></a>
                                 </h5>
                                 <ul class="list-group">

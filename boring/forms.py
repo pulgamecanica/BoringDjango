@@ -8,7 +8,7 @@ class GameForm(forms.Form):
     description = forms.CharField(widget=forms.Textarea, required=False, label='Game Description', max_length=150)
     iconClass1 = forms.CharField(required=False, label='Icon Class 1', max_length=5)
     iconClass2 = forms.CharField(required=False, label='Icon Class 2', max_length=15)
-    function = forms.CharField(required=False, label='Function', max_length=100)
+    function = forms.CharField(label='Function', widget=forms.Select(choices=FUNCTIONS), required=False)
     points_per_win = forms.IntegerField(required=False, label="Point per Win")
     active = forms.BooleanField(required=False)
     category = forms.ChoiceField(label="Category", choices=Game.GameCategory.choices, required=False)

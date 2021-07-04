@@ -21,7 +21,7 @@ def login_page_view(request, message=""):
 
 def logout_page_view(request):
     logout(request)
-    return render(request, 'boring_website/home.html')
+    return login_page_view(request, "Logged out...")
 
 def login_user(request):
     if request.method == 'POST':
@@ -93,9 +93,9 @@ def create_game(request):
     if request.method == 'POST':
         form = GameForm(request.POST)
         if form.is_valid():
-            game = Game.objects.create(name = form.cleaned_data['name'], description = form.cleaned_data['description'], iconClass1 = form.cleaned_data['iconClass1'], iconClass2 = form.cleaned_data['iconClass2'], function = form.cleaned_data['function'], points_per_win = form.cleaned_data['points_per_win'], active = form.cleaned_data['active'], category = form.cleaned_data['category'], user = request.user.boringuser)
-            if game.save:
-                print("GAME CREATED!!!!!!!!\n"*10)
+            if request.user.boringuser.buy_game():
+                game = Game.objects.create(name = form.cleaned_data['name'], description = form.cleaned_data['description'], iconClass1 = form.cleaned_data['iconClass1'], iconClass2 = form.cleaned_data['iconClass2'], function = form.cleaned_data['function'], points_per_win = form.cleaned_data['points_per_win'], active = form.cleaned_data['active'], category = form.cleaned_data['category'], user = request.user.boringuser)
+                game.save()
     return games_page_view(request)
 
 @login_required(login_url='./login')
@@ -131,10 +131,9 @@ def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            # game = Game.objects.create(name = form.cleaned_data['name'], description = form.cleaned_data['description'], iconClass1 = form.cleaned_data['iconClass1'], iconClass2 = form.cleaned_data['iconClass2'], function = form.cleaned_data['function'], points_per_win = form.cleaned_data['points_per_win'], active = form.cleaned_data['active'], category = form.cleaned_data['category'], user = request.user.id)
-            post = Post.objects.create(title=form.cleaned_data['title'], description=form.cleaned_data['description'], active=form.cleaned_data['active'], short_description=form.cleaned_data['short_description'], user=request.user.boringuser)
-            if post.save:
-                print("POST CREATED!!!!!!!!\n"*10)
+            if request.user.boringuser.buy_post():
+                post = Post.objects.create(title=form.cleaned_data['title'], description=form.cleaned_data['description'], active=form.cleaned_data['active'], short_description=form.cleaned_data['short_description'], user=request.user.boringuser)
+                post.save()
     return posts_page_view(request)
 
 @login_required(login_url='./login')

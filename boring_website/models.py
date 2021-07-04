@@ -45,6 +45,14 @@ class QuizzSubmission(models.Model):
     def __str__(self):
         return str(self.score)
 
+class QuestionSubmission(models.Model):
+    submission = models.ForeignKey(QuizzSubmission, on_delete=models.CASCADE, related_name='questions_submissions')
+
+class AnswerSubmission(models.Model):
+    input = models.CharField(max_length=300)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='answer_submissions')
+    question = models.ForeignKey(QuizzSubmission, on_delete=models.CASCADE, related_name='answers_submissions')
+
 class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
@@ -62,7 +70,7 @@ class ReviewElement(models.Model):
         ORIGINALITY = "OG"
     element = models.CharField(max_length=2, choices=ReviewElementOptions.choices, default=ReviewElementOptions.ORIGINALITY)
     grade = models.IntegerField()
-    comment = models.CharField(max_length=300, blank=True)
+    comment = models.CharField(max_length=300, blank=True) #THis one has been forgotten
     review = models.ForeignKey(Review, on_delete=CASCADE, related_name='elements')
     def __str__(self):
         element_name = ""

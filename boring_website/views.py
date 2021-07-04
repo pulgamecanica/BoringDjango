@@ -1,9 +1,12 @@
+from boring.views import boring_admin
+from django.core.serializers import serialize
+from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 
 # Create your views here.
 from django.http import HttpResponse
 from boring.models import *
-from .models import ContactBox, Question, QuizzSubmission
+from .models import *
 from .forms import ContactForm
 
 # Create your views here.
@@ -43,10 +46,13 @@ def contact_message(request):
 
 def quizz_submission(request):
     if request.method == "POST":
+        submission = QuizzSubmission()
         score = 0.0
         for question in Question.objects.all():
+            QuestionSubmission(submission=submission)
             if question.type() == "open_answer":
                 input_answer = request.POST[str(question.pk)]
+
                 # TO DO question could have an aptional answer
             elif question.type() == "one_choice":
                 input_answer = request.POST[str(question.pk)]
@@ -62,6 +68,28 @@ def quizz_submission(request):
                         else:
                             score -= answer.answer_points()
         score = (score*100)/sum(question.points for question in Question.objects.all()) if score >= 0 else 0
-        submission = QuizzSubmission(score=score)
+        submission.score = score
         submission.save()
     return home_page_view(request)
+def review(request):
+    # return render(request, 'boring_website/review.html', {})
+    r = Review()
+    r.save()
+    for option in ReviewElement.ReviewElementOptions:
+        re = ReviewElement(element=option, review=r, grade=0)
+        re.save()
+    response = {'elements': serialize('json', r.elements.all()), 'options': {option[0]:option[1] for option in ReviewElement.ReviewElementOptions.choices}}
+    return JsonResponse(response, status=200)
+def send_review(request):
+    if request.method == "POST":
+        dict = request.POST.dict()
+        dict.pop('csrfmiddlewaretoken')
+        for key, value in dict.items():
+            review = ReviewElement.objects.get(pk=int(key.split("_")[0]))
+            review.grade = value
+            review.save()
+    return home_page_view(request)
+
+def delete_review(request, review_id):
+    Review.objects.get(pk=review_id).delete()
+    return boring_admin(request)

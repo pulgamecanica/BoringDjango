@@ -115,6 +115,7 @@
                             <div class="jumbotron jumbotron-fluid p-0">
                                 <h6 class="p-4">Submited on: {{ submission.created_at.day }}/{{ submission.created_at.month }}/{{ submission.created_at.year }}</h6>
                                 <p class="lead">{{ submission.score }}%</p>
+                                <a href="{% url 'boring_website:quizz_result' submission.id %}" class="btn btn-primary m-3">Show Submission</a>
                             </div>
                         {% empty %}
                             <div class="jumbotron jumbotron-fluid p-0">

@@ -1,0 +1,29 @@
+{% extends 'boring_website/base.html' %}
+{% block main %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h3 class="lead">TOTAL SCORE: {{quizz_submission}}%</h3>
+            {% for question in quizz_submission.questions_submissions.all  %}
+                <div class="card m-3">
+                    <div <class="card-body">
+                        <h5 class="card-title">{{question}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{question.question.type}}</h6>
+                        <p class="card-text">Your answer(s): 
+                            {% for answer in question.answer_submissions.all  %}
+                                {{ answer.input }}
+                                {% if answer.answer %}
+                                    ({{answer.answer.answer_points}}pts).
+                                    {% if answer.answer.is_correct %}
+                                        <i class="fas fa-check text-success"></i>
+                                    {% else %}
+                                        <i class="fas fa-times text-danger"></i>
+                                    {% endif %}
+                                {% endif %} 
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

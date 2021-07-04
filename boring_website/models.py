@@ -47,12 +47,17 @@ class QuizzSubmission(models.Model):
 
 class QuestionSubmission(models.Model):
     submission = models.ForeignKey(QuizzSubmission, on_delete=models.CASCADE, related_name='questions_submissions')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_submissions', blank=True, null=True)
+    def __str__(self):
+        return str(self.question)
 
 class AnswerSubmission(models.Model):
     input = models.CharField(max_length=300)
-    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='answer_submissions')
-    question = models.ForeignKey(QuizzSubmission, on_delete=models.CASCADE, related_name='answers_submissions')
-
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='answer_submissions', blank=True, null=True)
+    question_submission = models.ForeignKey(QuestionSubmission, on_delete=models.CASCADE, related_name='answer_submissions', blank=True, null=True)
+    def __str__(self):
+        return str(self.input)
+        
 class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):

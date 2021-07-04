@@ -20,7 +20,16 @@
 	background-color: #fff6cc;
     border-color: #fff6cc;
 }
-
+.jumbotron-fluid {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+.jumbotron {
+    background-color: transparent;
+}
+.card {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+}
 html {width: 100%;}
 body {
 	width: 100%;

@@ -45,11 +45,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 });
 function newGame() {
-    openWindow("New Game!");
+    openWindow("New Game! 1000 ,10");
     showElement('game-form');
 };
 function newPost() {
-    openWindow("New Post!");
+    openWindow("New Post! 500, 0");
     showElement('post-form');
 };
 function openShop() {

@@ -47,30 +47,37 @@ def contact_message(request):
 def quizz_submission(request):
     if request.method == "POST":
         submission = QuizzSubmission()
+        submission.save()
         score = 0.0
         for question in Question.objects.all():
-            QuestionSubmission(submission=submission)
+            question_submission = QuestionSubmission(submission=submission, question=question)
+            question_submission.save()
             if question.type() == "open_answer":
-                input_answer = request.POST[str(question.pk)]
-
-                # TO DO question could have an aptional answer
+                answer_submission = AnswerSubmission(input = request.POST[str(question.pk)], question_submission = question_submission)
+                answer_submission.save()
             elif question.type() == "one_choice":
                 input_answer = request.POST[str(question.pk)]
                 for answer in question.answers.all():
-                    if f'{question.pk}_{answer.pk}' in input_answer and answer.is_correct:
-                        score += answer.answer_points()
+                    if f'{question.pk}_{answer.pk}' in input_answer:
+                        answer_submission = AnswerSubmission(input = answer.description, question_submission = question_submission, answer = answer)
+                        if answer.is_correct:
+                            score += answer.answer_points()
+                        answer_submission.save()
             elif question.type() == "multiple_choice":
                 input_answer = request.POST.getlist(str(question.pk))
                 for answer in question.answers.all():
                     if f'{question.pk}_{answer.pk}' in input_answer:
+                        answer_submission = AnswerSubmission(input = answer.description, question_submission = question_submission, answer = answer)
                         if answer.is_correct:
                             score += answer.answer_points()
                         else:
                             score -= answer.answer_points()
+                        answer_submission.save()
         score = (score*100)/sum(question.points for question in Question.objects.all()) if score >= 0 else 0
         submission.score = score
         submission.save()
-    return home_page_view(request)
+        question_submission.save()
+    return render(request, 'boring_website/quizz_result.html', {'quizz_submission': submission})
 def review(request):
     # return render(request, 'boring_website/review.html', {})
     r = Review()
@@ -93,3 +100,6 @@ def send_review(request):
 def delete_review(request, review_id):
     Review.objects.get(pk=review_id).delete()
     return boring_admin(request)
+
+def quizz_result(request, quizz_submission_id):
+    return render(request, 'boring_website/quizz_result.html', {'quizz_submission': QuizzSubmission.objects.get(pk=quizz_submission_id)})

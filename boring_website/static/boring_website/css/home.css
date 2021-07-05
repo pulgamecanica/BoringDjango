@@ -218,11 +218,11 @@
 .contact-box {
 	margin-bottom: 1em;
 	grid-column: 4 / 5;
-	grid-row: 5;
+	grid-row: 6;
 }
 .contact-box form {
 	text-align: center;
-	background: rgba(87, 18, 199, 0.30);
+	background-color: #ffeea6;;
 	box-shadow: 0 30px 60px 0 rgba(90, 116, 148, 0.4);
 	border-radius: 5px;
 	padding: 5px 0;
@@ -245,6 +245,17 @@
 	padding: 10px;
 	border-radius: 0.5em;
 	border: none;
+}
+#boring-video {
+	border-top: 5px solid #5712c7e6;;
+	background-color: #ffeea6;
+	grid-column: 1 / 4;
+	grid-row: 6;
+	margin-bottom: 1em;
+}
+#boring-video iframe {
+	width: 90%;
+	height: 400px;
 }
 @keyframes shake {
     0% {transform: rotateZ(0deg);}
@@ -310,4 +321,6 @@
 	.contact-box textarea, .contact-box input {
 		max-width: 80vw;
 	}
+	#boring-video {grid-column: 1 / 5;grid-row: 7;  height: 500px;}
+	#boring-video iframe {height: 400px;}
 }

@@ -77,7 +77,17 @@ def quizz_submission(request):
         submission.final_score = score
         submission.save()
         question_submission.save()
-    return render(request, 'boring_website/quizz_result.html', {'quizz_submission': submission})
+    qs = QuizzSubmission.objects.all()
+    scores = [int(submission.final_score) for submission in qs]
+    colors = list()
+    for s in qs:
+        if s.pk == submission.id:
+            colors.append((0.52, 0.26, 0.93))
+        else:
+            colors.append((1, 0.93, 0.65))
+    scores_labels = [f"{submission.pk}[{submission.created_at.day}/{submission.created_at.month}/{submission.created_at.year}]" for submission in qs]
+    graph = get_plot("Quizz Results", scores, scores_labels, colors)
+    return render(request, 'boring_website/quizz_result.html', {'quizz_submission': submission, 'graph': graph})
 def review(request):
     # return render(request, 'boring_website/review.html', {})
     r = Review()

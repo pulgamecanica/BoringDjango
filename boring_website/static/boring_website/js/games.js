@@ -225,7 +225,7 @@ function seconds_game(game_function, game_likes) {
 	let playing_area = document.querySelector("#game-content-box-"+game_function);
 	playing_area.innerHTML = "";
 	let slider = document.createElement('div');
-	slider.setAttribute('id', 'ackground-slider');
+	slider.setAttribute('id', 'background-slider');
 	let movement = document.createElement('span');
 	movement.setAttribute('id', 'you-moved');
 	movement.innerHTML = 'You moved!'

@@ -143,15 +143,194 @@ body {
     padding: 0.5rem;
     border-radius: 1em;
 }
-@keyframes gradient {
+
+@keyframes clock-time-up {
 	0% {
-	  background-position: 0% 50%;
+		color: green;
 	}
-	50% {
-	  background-position: 100% 50%;
+	80% {
+		color: red;
+		opacity: 1;
+	}
+	81% {
+		opacity: 0;
+	}
+	85% {
+		opacity: 0;
+	}
+	86% {
+		opacity: 1;
+	}
+	90% {
+		opacity: 1;
+	}
+	91% {
+		opacity: 0;
+	}
+	95% {
+		opacity: 0;
+	}
+	96% {
+		opacity: 1;
+	}
+	99% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes switch {
+	0% {
+		transform: translate3d(0, 0, 0);
 	}
 	100% {
-	  background-position: 0% 50%;
+		transform: translate3d(15px, 0, 0);
+		background-color: green;
+	}
+}
+@keyframes emoji-animation {
+	0% {
+		opacity: 1;
+	}
+	50%{
+		opacity: 0.5
+	}
+	100%{
+		opacity: 0;
+	}
+}
+@keyframes rain {
+	100%{
+		transform: translate(0, 200px);
+	}
+}
+
+@keyframes slide {
+	0% {
+		transform: translate3d(0, 0, 0);
+	}
+	100% {
+		transform: translate3d(-200px, 0, 0);
+	}
+}
+@keyframes loadingDot {
+	33% {
+		opacity: 0.5
+	}
+	66% {
+		opacity: 0.1;
+	}
+}
+@keyframes colorResult {
+	0% {
+		visibility: visible;
+	}
+	50% {
+		visibility: hidden;
+	}
+	100% {
+		visibility: visible;
+	}
+}
+@keyframes openColor {
+	0% {
+		color: black;
+	}
+	94% {
+		opacity: 1;
+	}
+	95% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes pulse {
+  0% {
+    opacity: 0;
+    color: pink;
+  }
+  5% {
+    opacity: 1;
+    color: green;
+  }
+  10% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+    color: orange;
+  }
+  20% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+    color: yellow;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes colors-animation {
+  0% {
+    transform: scale3d(1, 0, 1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale3d(1, 1, 1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale3d(1, 0, 1);
+    opacity: 1;
+  }
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes shake {
+  0% {
+  	transform: rotateZ(0deg);
+  }
+  30% {
+	transform: rotateZ(-5deg);
+  }
+  60% {
+	transform: rotateZ(5deg);
+  }
+  80% {
+	transform: rotateZ(-5deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+@keyframes bounce {
+  0% {
+    transform: translate(0, 5px);
+  }
+  60% {
+    transform: translate(0, 10px);
+  }
+} 
+@keyframes disappear {
+	0% {
+		color: #e34068;
+	}
+	70% {
+		opacity: 0.1;
+		display: none;
 	}
 }
 @media only screen and (min-width: 901px) {

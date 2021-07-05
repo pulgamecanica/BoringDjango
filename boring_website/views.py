@@ -2,15 +2,13 @@ from boring.views import boring_admin
 from django.core.serializers import serialize
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
-
-# Create your views here.
 from django.http import HttpResponse
+from boring_website.utils import get_plot
 from boring.models import *
 from .models import *
 from .forms import ContactForm
 from boring.forms import CommentForm
 
-# Create your views here.
 def home_page_view(request):
     contact_form = ContactForm()
     recent_posts = [post for post in Post.objects.all().filter(active=True).order_by('created_at')[:2] ]
@@ -104,4 +102,14 @@ def delete_review(request, review_id):
     return boring_admin(request)
 
 def quizz_result(request, quizz_submission_id):
-    return render(request, 'boring_website/quizz_result.html', {'quizz_submission': QuizzSubmission.objects.get(pk=quizz_submission_id)})
+    qs = QuizzSubmission.objects.all()
+    scores = [int(submission.final_score) for submission in qs]
+    colors = list()
+    for s in qs:
+        if s.pk == quizz_submission_id:
+            colors.append((0.52, 0.26, 0.93))
+        else:
+            colors.append((1, 0.93, 0.65))
+    scores_labels = [f"{submission.pk}[{submission.created_at.day}/{submission.created_at.month}/{submission.created_at.year}]" for submission in qs]
+    graph = get_plot("Quizz Results", scores, scores_labels, colors)
+    return render(request, 'boring_website/quizz_result.html', {'quizz_submission': QuizzSubmission.objects.get(pk=quizz_submission_id), 'graph': graph})

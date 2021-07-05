@@ -24,6 +24,19 @@
                     </div>
                 </div>
             {% endfor %}
+            {% if graph %}
+                <div class="container">
+                    <div class="card">
+                        <img src="data:image/png;base64, {{graph|safe}}" alt="graph" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-square" style="color:#ffeea6; display: block;"> Other Quizzes</i>
+                                <i class="fas fa-square" style="color:#8544ee"> Your Quizz</i>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

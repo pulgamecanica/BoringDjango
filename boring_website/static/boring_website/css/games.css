@@ -88,7 +88,7 @@
 .games-grid .game-player-section > h2 {padding: 1rem;color: rgba(87, 18, 199, 0.90);}
 .games-grid .game-player-section > h2 .fa-gem {color: red;}
 .games-grid .game-player-section > h2 .fa-coins {color: gold;}
-.games-grid .game-player-section .right {color: black;float: right;}
+.games-grid .game-player-section .right {color: black; display: inline-block;}
 .games-grid .game-player-section > .game-play-area {
 	min-height: 90%;
 	background-color: rgba(0 ,0, 0, 0.1);
@@ -258,7 +258,7 @@ article figure #guess-the-color-game h4, article figure #guess-the-color-game h3
 	margin: 0;
 	display: block;
 	border-radius: 1em;
-	background: rgba(0, 0, 0, 0.5);
+	background: #ffebf6;
 }
 article figure #guess-the-color-game h3 {
 	margin-top: 0.5rem;
@@ -438,10 +438,6 @@ article figure #guess-the-color-game h3:hover span{
 #game-content-box-logo_click h1 {
 	margin: 0.5rem;
 }
-
-
-
-
 #game-content-box-game_loading i {
 	font-size: 200%;
 	cursor: wait;
@@ -514,7 +510,6 @@ article figure #guess-the-color-game h3:hover span{
 .hide-game {
 	display: none;
 }
-
 @media only screen and (max-width: 900px) {
 	.games-container {
 		margin: 0;

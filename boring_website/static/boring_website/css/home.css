@@ -231,14 +231,12 @@
 .contact-box form .page-title {color: #560c6b}
 .contact-box form input {background-color: #ebebeb;}
 .contact-box form textarea {display: block; margin: 2rem auto 4rem auto;}
-
 .contact-box form input:hover, .contact-box form button:hover, .login-signup-container form button:hover, .login-signup-container form input:hover, .contact-box form textarea:hover{
 	border-bottom: 5px solid #5712c7e6;
 	transform: scale(1.1);
 	transition: ease 0.5s;
 }
 .contact-box .wrapper form {padding: 3rem;}
-
 .contact-box form .message {overflow: hidden;height: 5rem;}
 .contact-box form .formEntry, .mailbox-box .container-contact form .formEntry  {
 	display: block;
@@ -308,4 +306,8 @@
 	}
     .comments-box h2 {text-align: center;}
     .comments-box form{margin: 1rem;}
+	.contact-box {grid-column: 1 / 5;grid-row: 6;}
+	.contact-box textarea, .contact-box input {
+		max-width: 80vw;
+	}
 }

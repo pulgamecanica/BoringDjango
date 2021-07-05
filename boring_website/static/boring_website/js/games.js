@@ -286,6 +286,29 @@ function boring_switch(game_function, game_likes) {
 }
 function load_switch_game(playing_area, switchers) {
 	playing_area.innerHTML = "";
+	let lvlSection = document.createElement('div');
+	lvlSection.classList.add('d-flex');
+	lvlSection.classList.add('justify-content-around');
+	lvlSection.style.marginBottom = "1rem";
+	let b1 = document.createElement('button');
+	let b2 = document.createElement('button');
+	let b3 = document.createElement('button');
+	b1.classList.add('btn');
+	b2.classList.add('btn');
+	b3.classList.add('btn');
+	b1.classList.add('btn-primary');
+	b2.classList.add('btn-primary');
+	b3.classList.add('btn-primary');
+	b1.innerHTML = "[+10]";
+	b2.innerHTML = "[+20]";
+	b3.innerHTML = "[x2]";
+	b1.addEventListener('click', function() {load_switch_game(playing_area, switchers+10)},false)
+	b2.addEventListener('click', function() {load_switch_game(playing_area, switchers+20)},false)
+	b3.addEventListener('click', function() {load_switch_game(playing_area, switchers*2)},false)
+	lvlSection.appendChild(b1);
+	lvlSection.appendChild(b2);
+	lvlSection.appendChild(b3);
+	playing_area.append(lvlSection);
 	for (let index = 0; index < switchers; index++) {
 		let switch_element = document.createElement('div');
 		switch_element.classList.add('switch-container');

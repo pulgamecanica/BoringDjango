@@ -45,11 +45,39 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 });
 function newGame() {
-    openWindow("New Game! 1000 ,10");
+    let span = document.createElement('span');
+    let coins = document.createElement('i');
+    let diamonds = document.createElement('i');
+    coins.classList.add('fas');
+    coins.classList.add('fa-coins');
+    diamonds.classList.add('far');
+    diamonds.classList.add('fa-gem');
+    coins.style.fontSize = "80%";
+    diamonds.style.fontSize = "80%";
+    span.innerHTML = "New Post! (1000 ";
+    span.appendChild(coins);
+    span.innerHTML += " , 10 "
+    span.appendChild(diamonds);
+    span.innerHTML += ")."
+    openWindow(span);
     showElement('game-form');
 };
 function newPost() {
-    openWindow("New Post! 500, 0");
+    let span = document.createElement('span');
+    let coins = document.createElement('i');
+    let diamonds = document.createElement('i');
+    coins.classList.add('fas');
+    coins.classList.add('fa-coins');
+    diamonds.classList.add('far');
+    diamonds.classList.add('fa-gem');
+    coins.style.fontSize = "80%";
+    diamonds.style.fontSize = "80%";
+    span.innerHTML = "New Post! (500 ";
+    span.appendChild(coins);
+    span.innerHTML += " , 0 "
+    span.appendChild(diamonds);
+    span.innerHTML += ")."
+    openWindow(span);
     showElement('post-form');
 };
 function openShop() {
@@ -73,7 +101,7 @@ function goBack(params) {
 function openWindow(content) {
     document.querySelector('#profile-menu').style.display = "none";
     document.querySelector('#content-selected').style.display = "block";
-    document.querySelector('#content-selected-header').innerHTML = content;
+    document.querySelector('#content-selected-header').innerHTML = content.innerHTML;
     document.querySelector('#arrow-back').style.display = 'block';
 };
 function showElement(name) {

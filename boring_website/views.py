@@ -54,6 +54,7 @@ def quizz_submission(request):
             question_submission.save()
             if question.type() == "open_answer":
                 answer_submission = AnswerSubmission(input = request.POST[str(question.pk)], question_submission = question_submission)
+                score += question.points
                 answer_submission.save()
             elif question.type() == "one_choice":
                 input_answer = request.POST[str(question.pk)]

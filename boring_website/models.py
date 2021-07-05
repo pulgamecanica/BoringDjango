@@ -40,8 +40,8 @@ class Answer(models.Model):
         return f'{self.description}, {self.is_correct}.'
 
 class QuizzSubmission(models.Model):
-    score = models.FloatField(default=0.0)
     created_at = models.DateTimeField(auto_now_add=True)
+    score = models.DecimalField(decimal_places=2, max_digits=5, default=0.0)
     def __str__(self):
         return str(self.score)
 

@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from boring.models import *
 from .models import *
 from .forms import ContactForm
+from boring.forms import CommentForm
 
 # Create your views here.
 def home_page_view(request):
@@ -17,7 +18,7 @@ def home_page_view(request):
     game = None if len(Game.objects.all()) == 0 else Game.objects.all().order_by('likes')[0]
     post = None if len(Post.objects.all()) == 0 else Post.objects.all().order_by('likes')[0]
     comments = Comment.objects.order_by('created_at')
-    context = {'contact_form': contact_form, 'post': post, 'game': game, 'posts': recent_posts, 'games_by_cat': recent_games_by_cat, 'comments': comments}
+    context = {'contact_form': contact_form, 'post': post, 'game': game, 'posts': recent_posts, 'games_by_cat': recent_games_by_cat, 'comments': comments, 'comment_form': CommentForm}
     return render(request, 'boring_website/home.html', context)
 
 def games_page_view(request):

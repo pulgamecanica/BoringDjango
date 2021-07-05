@@ -1,5 +1,5 @@
 import boring
-from django.http.response import JsonResponse
+from django.http.response import HttpResponseRedirect, JsonResponse
 from django.core.serializers import serialize
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -7,8 +7,8 @@ from django.contrib.auth import authenticate, logout, login
 from django.http import HttpResponse, request
 from django.contrib.auth.models import User
 from boring_website.models import ContactBox, QuizzSubmission, Review, Question, Answer
-from .models import Game, Post, BoringUser, Item
-from .forms import GameForm, PostForm, LoginForm, RegisterForm, SettingsForm, QuestionForm, AnswerForm
+from .models import Comment, Game, Post, BoringUser, Item
+from .forms import GameForm, PostForm, LoginForm, RegisterForm, SettingsForm, QuestionForm, AnswerForm, CommentForm
 
 @login_required(login_url='./login')
 def profile_page_view(request, message=""):
@@ -247,3 +247,13 @@ def delete_answer(request, answer_id):
         return profile_page_view(request, "Sorry, you are not an Admin")
     Answer.objects.get(pk=answer_id).delete()
     return boring_admin(request)
+
+@login_required(login_url='./login')
+def comment(request):
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            dectription = form.cleaned_data['comment_description']
+            comment = Comment(user=request.user.boringuser, description=dectription)
+            comment.save()
+    return HttpResponseRedirect("..")

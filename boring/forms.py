@@ -43,3 +43,6 @@ class QuestionForm(forms.Form):
 class AnswerForm(forms.Form):
     description = forms.CharField(label="Description")
     is_correct = forms.BooleanField(required=False)
+
+class CommentForm(forms.Form):
+    comment_description = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Add a public comment...', 'class': 'form-contro'}))

@@ -190,6 +190,8 @@
 .comments-box input {
 	background: white;  
 	border-radius: 0 1em 1em 0;
+	border-color: #5712c7e6;
+	min-width: 70%;
 	height: 50px;
 }
 .comments-box input:focus {padding: 0.85rem;}
@@ -226,7 +228,7 @@
 	box-shadow: 0 30px 60px 0 rgba(90, 116, 148, 0.4);
 	border-radius: 5px;
 	padding: 5px 0;
-	border-top: 5px solid #5712c7e6;;
+	border-top: 5px solid #5712c7e6;
 }
 .contact-box form .page-title {color: #560c6b}
 .contact-box form input {background-color: #ebebeb;}

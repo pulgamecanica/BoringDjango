@@ -28,5 +28,6 @@ urlpatterns = [
     path('create_answer/<int:question_id>', views.create_answer, name="create_answer"),
     path('delete_question/<int:question_id>', views.delete_question, name="delete_question" ),
     path('delete_answer/<int:answer_id>', views.delete_answer, name="delete_answer" ),
+    path('comment', views.comment, name="comment"),
 
 ]

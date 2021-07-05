@@ -41,9 +41,9 @@ class Answer(models.Model):
 
 class QuizzSubmission(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    score = models.DecimalField(decimal_places=2, max_digits=5, default=0.0)
+    final_score = models.DecimalField(decimal_places=2, max_digits=5, default=0.0)
     def __str__(self):
-        return str(self.score)
+        return str(self.final_score)
 
 class QuestionSubmission(models.Model):
     submission = models.ForeignKey(QuizzSubmission, on_delete=models.CASCADE, related_name='questions_submissions')

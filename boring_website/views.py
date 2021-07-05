@@ -74,7 +74,7 @@ def quizz_submission(request):
                             score -= answer.answer_points()
                         answer_submission.save()
         score = (score*100)/sum(question.points for question in Question.objects.all()) if score >= 0 else 0
-        submission.score = score
+        submission.final_score = score
         submission.save()
         question_submission.save()
     return render(request, 'boring_website/quizz_result.html', {'quizz_submission': submission})

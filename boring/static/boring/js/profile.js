@@ -54,7 +54,7 @@ function newGame() {
     diamonds.classList.add('fa-gem');
     coins.style.fontSize = "80%";
     diamonds.style.fontSize = "80%";
-    span.innerHTML = "New Post! (1000 ";
+    span.innerHTML = "New Game! (1000 ";
     span.appendChild(coins);
     span.innerHTML += " , 10 "
     span.appendChild(diamonds);
